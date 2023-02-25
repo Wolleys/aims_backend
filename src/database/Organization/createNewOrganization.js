@@ -1,5 +1,5 @@
 const { sequelize } = require("../dbConfig");
-const { model } = require("./organizationModel");
+const { Organization } = require("./organizationModel");
 const { OrganizationAddress } = require("../OrganizationAddress/organizationAddressModel");
 
 const createNewOrganization = async (newOrganization) => {
@@ -7,7 +7,7 @@ const createNewOrganization = async (newOrganization) => {
     try {
         transaction = await sequelize.transaction();
 
-        const isAlreadyAdded = await model().findOne({
+        const isAlreadyAdded = await Organization().findOne({
             where: { email: newOrganization.email },
         });
         if (isAlreadyAdded) {
@@ -17,7 +17,7 @@ const createNewOrganization = async (newOrganization) => {
             };
         }
 
-        const createdOrganization = await model().create(newOrganization, {
+        const createdOrganization = await Organization().create(newOrganization, {
             transaction,
         });
 

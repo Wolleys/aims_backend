@@ -1,8 +1,8 @@
-const { model } = require("./organizationModel");
+const { Organization } = require("./organizationModel");
 
 const getAllOrganizations = async () => {
     try {
-        const allOrganizations = await model().findAll({
+        const allOrganizations = await Organization().findAll({
             order: [["createdAt", "DESC"]],
         });
         return allOrganizations;

@@ -1,8 +1,8 @@
-const { model } = require("./organizationModel");
+const { Organization } = require("./organizationModel");
 
 const getOneOrganization = async (organizationId) => {
     try {
-        const organization = await model().findByPk(organizationId);
+        const organization = await Organization().findByPk(organizationId);
         if (!organization) {
             throw {
                 status: 404,

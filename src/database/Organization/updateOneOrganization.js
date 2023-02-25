@@ -1,8 +1,8 @@
-const { model } = require("./organizationModel");
+const { Organization } = require("./organizationModel");
 
 const updateOneOrganization = async (organizationId, changes) => {
     try {
-        const confirmIdParam = await model().findOne({
+        const confirmIdParam = await Organization().findOne({
             where: { id: organizationId },
         });
         if (!confirmIdParam) {
@@ -11,7 +11,7 @@ const updateOneOrganization = async (organizationId, changes) => {
                 message: `Can't find an organization with the id '${organizationId}'`,
             };
         }
-        const updateOrganization = await model().update(
+        const updateOrganization = await Organization().update(
             { ...changes },
             { where: { id: organizationId } }
         );
@@ -21,7 +21,7 @@ const updateOneOrganization = async (organizationId, changes) => {
                 message: `Error while updating organization with the id '${organizationId}'`,
             };
         }
-        const returnUpdatedOrganization = await model().findOne({
+        const returnUpdatedOrganization = await Organization().findOne({
             where: { id: organizationId },
             attributes: [
                 "id",
