@@ -5,8 +5,8 @@ const { updateOneOrganization } = require("./updateOneOrganization");
 const { deleteOneOrganization } = require("./deleteOneOrganization");
 
 module.exports = {
-    getAllOrganizations,
     getOneOrganization,
+    getAllOrganizations,
     createNewOrganization,
     updateOneOrganization,
     deleteOneOrganization,

@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    getAllOrganizations,
     getOneOrganization,
+    getAllOrganizations,
     createNewOrganization,
     updateOneOrganization,
     deleteOneOrganization,
