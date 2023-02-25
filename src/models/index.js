@@ -1,11 +1,14 @@
 const { createNewOrganization } = require("./organizationModel");
+const { createOrganizationAddress } = require("./organizationModel/organizationAddress");
 
 function setupModels(sequelize) {
     try {
-        const Organizations = createNewOrganization(sequelize);
+        const Organization = createNewOrganization(sequelize);
+        const OrganizationAddress = createOrganizationAddress(sequelize);
 
         return {
-            Organizations,
+            Organization,
+            OrganizationAddress,
         };
     } catch (err) {
         throw err;

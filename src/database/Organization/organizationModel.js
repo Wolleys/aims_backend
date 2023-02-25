@@ -1,4 +1,4 @@
 const { getModels } = require("../dbConfig");
-const model = () => getModels().Organizations;
+const model = () => getModels().Organization;
 
 module.exports = { model };
