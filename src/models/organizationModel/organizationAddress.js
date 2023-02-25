@@ -32,23 +32,7 @@ function createOrganizationAddress(sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        organization_id: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            references: {
-                // organization_address belongsTo organizations 1:1
-                model: "organizations",
-                key: "id",
-            },
-        },
     });
-
-    OrganizationAddress.associate = (models) => {
-        OrganizationAddress.belongsTo(models.Organization, {
-            foreignKey: "organization_id",
-            as: organization,
-        });
-    };
 
     return OrganizationAddress;
 }

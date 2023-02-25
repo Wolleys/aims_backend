@@ -6,6 +6,9 @@ function setupModels(sequelize) {
         const Organization = createNewOrganization(sequelize);
         const OrganizationAddress = createOrganizationAddress(sequelize);
 
+        // Associations
+        OrganizationAddress.belongsTo(Organization, { onDelete: "cascade" });
+
         return {
             Organization,
             OrganizationAddress,

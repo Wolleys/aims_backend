@@ -23,4 +23,4 @@ function getModels() {
   return models;
 }
 
-module.exports = { connect, getModels };
+module.exports = { connect, getModels, sequelize };
