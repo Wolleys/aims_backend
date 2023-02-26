@@ -1,5 +1,7 @@
 const { createNewOrganization } = require("./organizationModel");
-const { createOrganizationAddress } = require("./organizationModel/organizationAddress");
+const {
+    createOrganizationAddress,
+} = require("./organizationModel/organizationAddress");
 
 function setupModels(sequelize) {
     try {
@@ -7,6 +9,8 @@ function setupModels(sequelize) {
         const OrganizationAddress = createOrganizationAddress(sequelize);
 
         // Associations
+        // 1. *** Organization Associations ***
+        Organization.hasOne(OrganizationAddress);
         OrganizationAddress.belongsTo(Organization, { onDelete: "cascade" });
 
         return {

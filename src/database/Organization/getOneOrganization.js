@@ -1,8 +1,35 @@
 const { Organization } = require("./organizationModel");
+const { OrganizationAddress } = require("../OrganizationAddress/organizationAddressModel");
 
 const getOneOrganization = async (organizationId) => {
     try {
-        const organization = await Organization().findByPk(organizationId);
+        const organization = await Organization().findByPk(organizationId, {
+            attributes: [
+                "id",
+                "first_name",
+                "last_name",
+                "organization_name",
+                "avatar",
+                "user_role",
+                "phone_number",
+                "website",
+                "email",
+            ],
+            include: [
+                {
+                    model: OrganizationAddress(),
+                    attributes: [
+                        "id",
+                        "country",
+                        "address_line_1",
+                        "address_line_2",
+                        "city",
+                        "region",
+                        "postal_code",
+                    ],
+                },
+            ],
+        });
         if (!organization) {
             throw {
                 status: 404,
