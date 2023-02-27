@@ -1,5 +1,6 @@
 const { sequelize } = require("../dbConfig");
 const { Organization } = require("./organizationModel");
+const { OrganizationAvatar } = require("../OrganizationAvatar/organizationAvatarModel");
 const { OrganizationAddress } = require("../OrganizationAddress/organizationAddressModel");
 
 const createNewOrganization = async (newOrganization) => {
@@ -31,8 +32,14 @@ const createNewOrganization = async (newOrganization) => {
             organizationId: createdOrganization.id,
         };
 
+        const avatar = {
+            organizationId: createdOrganization.id,
+        }
+
         await OrganizationAddress().create(address, { transaction });
+        await OrganizationAvatar().create(avatar, { transaction });
         await transaction.commit();
+
         return createdOrganization;
     } catch (error) {
         if (transaction) {

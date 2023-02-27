@@ -1,4 +1,5 @@
 const { Organization } = require("./organizationModel");
+const { OrganizationAvatar } = require("../OrganizationAvatar/organizationAvatarModel");
 const { OrganizationAddress } = require("../OrganizationAddress/organizationAddressModel");
 
 const getOneOrganization = async (organizationId) => {
@@ -9,7 +10,6 @@ const getOneOrganization = async (organizationId) => {
                 "first_name",
                 "last_name",
                 "organization_name",
-                "avatar",
                 "user_role",
                 "phone_number",
                 "website",
@@ -27,6 +27,10 @@ const getOneOrganization = async (organizationId) => {
                         "region",
                         "postal_code",
                     ],
+                },
+                {
+                    model: OrganizationAvatar(),
+                    attributes: ["id", "avatar"],
                 },
             ],
         });

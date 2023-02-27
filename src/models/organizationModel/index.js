@@ -1,5 +1,4 @@
 const { DataTypes, Sequelize } = require("sequelize");
-const env = process.env;
 
 function createNewOrganization(sequelize) {
     const Organizations = sequelize.define("organizations", {
@@ -20,10 +19,6 @@ function createNewOrganization(sequelize) {
         organization_name: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        avatar: {
-            type: DataTypes.STRING,
-            defaultValue: `${env.SERVER_URL}/public/avatar.jpg`,
         },
         user_role: {
             type: DataTypes.STRING,
