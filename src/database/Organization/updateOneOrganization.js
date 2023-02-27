@@ -11,6 +11,7 @@ const updateOneOrganization = async (organizationId, changes) => {
                 message: `Can't find an organization with the id '${organizationId}'`,
             };
         }
+
         const updateOrganization = await Organization().update(
             { ...changes },
             { where: { id: organizationId } }
@@ -21,6 +22,7 @@ const updateOneOrganization = async (organizationId, changes) => {
                 message: `Error while updating organization with the id '${organizationId}'`,
             };
         }
+        
         const returnUpdatedOrganization = await Organization().findOne({
             where: { id: organizationId },
             attributes: [

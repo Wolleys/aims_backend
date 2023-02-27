@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+//Import organization controllers
 const {
     getOneOrganization,
     getAllOrganizations,
@@ -8,24 +9,22 @@ const {
     updateOneOrganization,
     deleteOneOrganization,
 } = require("../../../controllers/organizationController");
+const { updateOneAddress } = require("../../../controllers/organizationAddress");
 
-const {
-    newOrganization,
-} = require("../../../schemas/organizationSchemas/newOrganization");
-const {
-    updateOrganization,
-} = require("../../../schemas/organizationSchemas/updateOrganization");
+//Import schema validation middleware
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
-//Routes
+//Import the required organization schemas
+const { updateAddress } = require("../../../schemas/organizationSchemas/updateAddress");
+const { newOrganization } = require("../../../schemas/organizationSchemas/newOrganization");
+const { updateOrganization } = require("../../../schemas/organizationSchemas/updateOrganization");
+
+//All organization routes
 router.get("/", getAllOrganizations);
 router.get("/:organizationId", getOneOrganization);
 router.post("/", validateSchema(newOrganization), createNewOrganization);
-router.patch(
-    "/:organizationId",
-    validateSchema(updateOrganization),
-    updateOneOrganization
-);
+router.patch("/:organizationId", validateSchema(updateOrganization), updateOneOrganization);
+router.patch("/:organizationId/address", validateSchema(updateAddress), updateOneAddress);
 router.delete("/:organizationId", deleteOneOrganization);
 
 module.exports = router;
