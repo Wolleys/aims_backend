@@ -11,7 +11,8 @@ const {
 } = require("../../../controllers/organizationController");
 const { updateOneAddress } = require("../../../controllers/organizationAddress");
 
-//Import schema validation middleware
+//Import middlewares
+const { cache } = require("../../../middlewares/cache");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
 //Import the required organization schemas
@@ -20,8 +21,8 @@ const { newOrganization } = require("../../../schemas/organizationSchemas/newOrg
 const { updateOrganization } = require("../../../schemas/organizationSchemas/updateOrganization");
 
 //All organization routes
-router.get("/", getAllOrganizations);
-router.get("/:organizationId", getOneOrganization);
+router.get("/", cache(), getAllOrganizations);
+router.get("/:organizationId", cache(), getOneOrganization);
 router.post("/", validateSchema(newOrganization), createNewOrganization);
 router.patch("/:organizationId", validateSchema(updateOrganization), updateOneOrganization);
 router.patch("/:organizationId/address", validateSchema(updateAddress), updateOneAddress);
