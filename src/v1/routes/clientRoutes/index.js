@@ -3,7 +3,7 @@ const router = express.Router();
 
 //Import client controllers
 const {
-    getOnelient,
+    getOneClient,
     getAllClients,
     createNewClient,
     updateOneClient,
@@ -12,7 +12,7 @@ const {
 
 //All client routes
 router.get("/", getAllClients);
-router.get("/:clientId", getOnelient);
+router.get("/:clientId", getOneClient);
 router.post("/", createNewClient);
 router.patch("/:clientId", updateOneClient);
 router.delete("/:clientId", deleteOneClient);
