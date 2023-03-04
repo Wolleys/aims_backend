@@ -13,7 +13,7 @@ const {
 //All supplier routes
 router.get("/", getAllSuppliers);
 router.get("/:supplierId", getOneSupplier);
-router.post("/", createNewSupplier);
+router.post("/:organizationId", createNewSupplier);
 router.patch("/:supplierId", updateOneSupplier);
 router.delete("/:supplierId", deleteOneSupplier);
 

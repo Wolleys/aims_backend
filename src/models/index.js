@@ -1,24 +1,19 @@
-const { createNewOrganization } = require("./organizationModel");
-const { createOrganizationAvatar } = require("./organizationModel/organizationAvatar");
-const { createOrganizationAddress } = require("./organizationModel/organizationAddress");
+const { setupSupplierModels } = require("./supplierModel/setupModels");
+const { setupOrganizationModels } = require("./organizationModel/setupModels");
 
 function setupModels(sequelize) {
     try {
-        const Organization = createNewOrganization(sequelize);
-        const OrganizationAvatar = createOrganizationAvatar(sequelize);
-        const OrganizationAddress = createOrganizationAddress(sequelize);
+        const supplierModels = setupSupplierModels(sequelize);
+        const organizationModels = setupOrganizationModels(sequelize);
 
-        // Associations
-        // 1. *** Organization Associations ***
-        Organization.hasOne(OrganizationAvatar);
-        Organization.hasOne(OrganizationAddress);
-        OrganizationAvatar.belongsTo(Organization, { onDelete: "cascade" });
-        OrganizationAddress.belongsTo(Organization, { onDelete: "cascade" });
+        // *** Organization and Supplier 1:n association ***
+        // 1. Organization has many Suppliers (hasMany) 1:n
+        organizationModels.Organization.hasMany(supplierModels.Supplier, { onDelete: "CASCADE" });
+        supplierModels.Supplier.belongsTo(organizationModels.Organization);
 
         return {
-            Organization,
-            OrganizationAvatar,
-            OrganizationAddress,
+            ...supplierModels,
+            ...organizationModels,
         };
     } catch (err) {
         throw err;
