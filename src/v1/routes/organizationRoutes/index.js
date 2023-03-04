@@ -16,16 +16,21 @@ const { cache } = require("../../../middlewares/cache");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
 //Import the required organization schemas
-const { updateAddress } = require("../../../schemas/organizationSchemas/updateAddress");
+const { physicalAddress } = require("../../../schemas/addressSchema");
 const { newOrganization } = require("../../../schemas/organizationSchemas/newOrganization");
 const { updateOrganization } = require("../../../schemas/organizationSchemas/updateOrganization");
+
+const validateAll = () => {
+    const shemas = [validateSchema(newOrganization), validateSchema(physicalAddress)];
+    return shemas;
+};
 
 //All organization routes
 router.get("/", cache(), getAllOrganizations);
 router.get("/:organizationId", cache(), getOneOrganization);
-router.post("/", validateSchema(newOrganization), createNewOrganization);
+router.post("/", validateAll(), createNewOrganization);
 router.patch("/:organizationId", validateSchema(updateOrganization), updateOneOrganization);
-router.patch("/:organizationId/address", validateSchema(updateAddress), updateOneAddress);
+router.patch("/:organizationId/address", validateSchema(physicalAddress), updateOneAddress);
 router.delete("/:organizationId", deleteOneOrganization);
 
 module.exports = router;
