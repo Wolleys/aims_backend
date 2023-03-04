@@ -25,7 +25,7 @@ const validateAll = () => {
 
 //All supplier routes
 router.get("/:organizationId", getAllSuppliers);
-router.get("/:supplierId", getOneSupplier);
+router.get("/:organizationId/:supplierId", getOneSupplier);
 router.post("/:organizationId", validateAll(), createNewSupplier);
 router.patch("/:supplierId", updateOneSupplier);
 router.delete("/:supplierId", deleteOneSupplier);
