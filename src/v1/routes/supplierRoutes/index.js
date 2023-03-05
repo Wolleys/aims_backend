@@ -25,13 +25,41 @@ const validateAll = () => {
 };
 
 //Required parameters for this route
+const singleParam = ["organizationId"];
 const multipleParams = ["organizationId", "supplierId"];
 
-//All supplier routes
-router.get("/:organizationId", getAllSuppliers);
-router.get("/:organizationId/:supplierId", getOneSupplier);
-router.post("/:organizationId", validateAll(), createNewSupplier);
-router.patch("/:organizationId/:supplierId", validateSchema(newSupplier), updateOneSupplier);
-router.delete("/:organizationId/:supplierId", requireParams(multipleParams), deleteOneSupplier);
+//Supplier routes
+// 1. Get all suppliers from a specific organization
+router.get("/:organizationId", requireParams(singleParam), getAllSuppliers);
+
+// 2. Get one supplier from a specific organization by id
+router.get(
+    "/:organizationId/:supplierId",
+    requireParams(multipleParams),
+    getOneSupplier
+);
+
+// 3. Create a new supplier to a specific organization
+router.post(
+    "/:organizationId",
+    requireParams(singleParam),
+    validateAll(),
+    createNewSupplier
+);
+
+// 4. Update one supplier from a specific organization by id
+router.patch(
+    "/:organizationId/:supplierId",
+    requireParams(multipleParams),
+    validateSchema(newSupplier),
+    updateOneSupplier
+);
+
+// 5. Delete one supplier from a specific organization by id
+router.delete(
+    "/:organizationId/:supplierId",
+    requireParams(multipleParams),
+    deleteOneSupplier
+);
 
 module.exports = router;
