@@ -11,6 +11,7 @@ const {
 } = require("../../../controllers/supplierController");
 
 //Import middlewares
+const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
 //Import the required organization schemas
@@ -23,11 +24,14 @@ const validateAll = () => {
     return shemas;
 };
 
+//Required parameters for this route
+const multipleParams = ["organizationId", "supplierId"];
+
 //All supplier routes
 router.get("/:organizationId", getAllSuppliers);
 router.get("/:organizationId/:supplierId", getOneSupplier);
 router.post("/:organizationId", validateAll(), createNewSupplier);
 router.patch("/:organizationId/:supplierId", validateSchema(newSupplier), updateOneSupplier);
-router.delete("/:supplierId", deleteOneSupplier);
+router.delete("/:organizationId/:supplierId", requireParams(multipleParams), deleteOneSupplier);
 
 module.exports = router;
