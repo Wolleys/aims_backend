@@ -2,12 +2,6 @@ const organizationService = require("../../services/organizationService");
 
 const getOneOrganization = async (req, res) => {
     const organizationId = req.params.organizationId;
-    if (!organizationId) {
-        return res.status(400).send({
-            status: "FAILED",
-            data: { error: "Parameter ':organizationId' can't be empty" },
-        });
-    }
     try {
         const organization = await organizationService.getOneOrganization(
             organizationId
