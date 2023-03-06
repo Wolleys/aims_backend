@@ -9,6 +9,7 @@ const {
     updateOneSupplier,
     deleteOneSupplier,
 } = require("../../../controllers/supplierController");
+const { updateOneAddress } = require("../../../controllers/supplierAddress");
 
 //Import middlewares
 const { requireParams } = require("../../../middlewares/checkParams");
@@ -55,7 +56,15 @@ router.patch(
     updateOneSupplier
 );
 
-// 5. Delete one supplier from a specific organization by id
+// 5. Update one supplier address from a specific organization by id
+router.patch(
+    "/:organizationId/:supplierId/address",
+    requireParams(multipleParams),
+    validateSchema(physicalAddress),
+    updateOneAddress
+);
+
+// 6. Delete one supplier from a specific organization by id
 router.delete(
     "/:organizationId/:supplierId",
     requireParams(multipleParams),
