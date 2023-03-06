@@ -1,4 +1,8 @@
-const createNewClient = (newClient) => {
+const createNewClient = (newClient, organizationId) => {
+    const clientToInsert = {
+        ...newClient,
+        organizationId
+    };
     return;
 };
 
