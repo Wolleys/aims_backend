@@ -30,7 +30,7 @@ const multipleParams = ["organizationId", "clientId"];
 
 //Client routes
 // 1. Get all clients from a specific organization
-router.get("/organizationId", requireParams(singleParam), getAllClients);
+router.get("/:organizationId", requireParams(singleParam), getAllClients);
 
 // 2. Get one client from a specific organization by id
 router.get(
