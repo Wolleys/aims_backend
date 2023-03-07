@@ -9,6 +9,7 @@ const {
     updateOneClient,
     deleteOneClient,
 } = require("../../../controllers/clientController");
+const { updateOneAddress } = require("../../../controllers/clientAddress");
 
 //Import middlewares
 const { requireParams } = require("../../../middlewares/checkParams");
@@ -55,7 +56,15 @@ router.patch(
     updateOneClient
 );
 
-// 5. Delete one client from a specific organization by id
+// 5. Update one client address from a specific organization by id
+router.patch(
+    "/:organizationId/:clientId/address",
+    requireParams(multipleParams),
+    validateSchema(physicalAddress),
+    updateOneAddress
+);
+
+// 6. Delete one client from a specific organization by id
 router.delete(
     "/:organizationId/:clientId",
     requireParams(multipleParams),
