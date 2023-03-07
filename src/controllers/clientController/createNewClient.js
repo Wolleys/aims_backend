@@ -4,7 +4,10 @@ const createNewClient = async (req, res) => {
     const body = req.body;
     const organizationId = req.params.organizationId;
     try {
-        const createdClient = clientService.createNewClient(body, organizationId);
+        const createdClient = await clientService.createNewClient(
+            body,
+            organizationId
+        );
         res.status(201).send({ status: "OK", data: createdClient });
     } catch (error) {
         res
