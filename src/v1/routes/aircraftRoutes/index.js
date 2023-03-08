@@ -22,7 +22,7 @@ const singleParam = ["organizationId"];
 
 //Aircraft routes
 // 1. Get all aircrafts from a specific organization
-router.get("/", getAllAircrafts);
+router.get("/:organizationId", requireParams(singleParam), getAllAircrafts);
 
 // 2. Get one aircraft from a specific organization by id
 router.get("/:aircraftId", getOneAircraft);
