@@ -1,16 +1,8 @@
 const { Aircraft } = require("./aircraftModel");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 
 const deleteOneAircraft = async (organizationId, aircraftId) => {
-    const organizationExists = await Organization().findOne({
-        where: { id: organizationId },
-    });
-    if (!organizationExists) {
-        throw {
-            status: 404,
-            message: `Can't find an organization with the id '${organizationId}'`,
-        };
-    }
+    await checkOrganization(organizationId);
 
     try {
         const aircraft = await Aircraft().destroy({

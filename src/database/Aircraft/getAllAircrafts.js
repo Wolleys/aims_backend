@@ -1,16 +1,8 @@
 const { Aircraft } = require("./aircraftModel");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 
 const getAllAircrafts = async (organizationId) => {
-    const confirmIdParam = await Organization().findOne({
-        where: { id: organizationId },
-    });
-    if (!confirmIdParam) {
-        throw {
-            status: 404,
-            message: `Can't find an organization with the id '${organizationId}'`,
-        };
-    }
+    await checkOrganization(organizationId);
 
     try {
         const allAircrafts = await Aircraft().findAll({
