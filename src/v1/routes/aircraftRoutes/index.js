@@ -19,13 +19,18 @@ const { aircraftSchema } = require("../../../schemas/aircraftSchema");
 
 //Required parameters for this route
 const singleParam = ["organizationId"];
+const multipleParams = ["organizationId", "aircraftId"];
 
 //Aircraft routes
 // 1. Get all aircrafts from a specific organization
 router.get("/:organizationId", requireParams(singleParam), getAllAircrafts);
 
 // 2. Get one aircraft from a specific organization by id
-router.get("/:aircraftId", getOneAircraft);
+router.get(
+    "/:organizationId/:aircraftId",
+    requireParams(multipleParams),
+    getOneAircraft
+);
 
 // 3. Create a new aircraft to a specific organization
 router.post(
