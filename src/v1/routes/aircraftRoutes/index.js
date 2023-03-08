@@ -49,6 +49,10 @@ router.patch(
 );
 
 // 5. Delete one aircraft from a specific organization by id
-router.delete("/:aircraftId", deleteOneAircraft);
+router.delete(
+    "/:organizationId/:aircraftId",
+    requireParams(multipleParams),
+    deleteOneAircraft
+);
 
 module.exports = router;
