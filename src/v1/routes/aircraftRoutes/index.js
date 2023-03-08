@@ -41,7 +41,12 @@ router.post(
 );
 
 // 4. Update one aircraft from a specific organization by id
-router.patch("/:aircraftId", updateOneAircraft);
+router.patch(
+    "/:organizationId/:aircraftId",
+    requireParams(multipleParams),
+    validateSchema(aircraftSchema),
+    updateOneAircraft
+);
 
 // 5. Delete one aircraft from a specific organization by id
 router.delete("/:aircraftId", deleteOneAircraft);
