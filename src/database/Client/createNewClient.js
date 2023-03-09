@@ -12,6 +12,7 @@ const createNewClient = async (newClient, organizationId) => {
 
         const isAlreadyAdded = await Client().findOne({
             where: { email: newClient.email },
+            attributes: ["email"],
         });
         if (isAlreadyAdded) {
             throw {

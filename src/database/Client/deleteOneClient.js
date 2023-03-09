@@ -1,12 +1,13 @@
 const { Client } = require("./clientModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
-const deleteOneClient = async(organizationId, clientId) => {
+const deleteOneClient = async (organizationId, clientId) => {
     await checkOrganization(organizationId);
-    
+
     try {
         const client = await Client().destroy({
             where: { id: clientId, organizationId },
+            attributes: ["id", "organizationId"],
         });
         if (!client) {
             throw {

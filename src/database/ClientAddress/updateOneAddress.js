@@ -6,6 +6,7 @@ const updateOneAddress = async (organizationId, clientId, changes) => {
 
     const clientExists = await ClientAddress().findOne({
         where: { clientId },
+        attributes: ["clientId"],
     });
     if (!clientExists) {
         throw {
