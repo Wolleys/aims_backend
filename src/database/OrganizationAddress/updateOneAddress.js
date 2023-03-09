@@ -4,6 +4,7 @@ const updateOneAddress = async (organizationId, changes) => {
     try {
         const confirmIdParam = await OrganizationAddress().findOne({
             where: { organizationId },
+            attributes: ["organizationId"],
         });
         if (!confirmIdParam) {
             throw {
