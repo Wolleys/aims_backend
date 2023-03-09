@@ -1,18 +1,11 @@
 const { Supplier } = require("./supplierModel");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 const { SupplierAvatar } = require("../SupplierAvatar/supplierAvatarModel");
 const { SupplierAddress } = require("../SupplierAddress/supplierAddressModel");
 
 const getAllSuppliers = async(organizationId) => {
-    const confirmIdParam = await Organization().findOne({
-        where: { id: organizationId },
-    });
-    if (!confirmIdParam) {
-        throw {
-            status: 404,
-            message: `Can't find an organization with the id '${organizationId}'`,
-        };
-    }
+    await checkOrganization(organizationId);
+    
     try {
         const allSuppliers = await Supplier().findAll({
             where: { organizationId },
