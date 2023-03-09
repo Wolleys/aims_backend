@@ -10,6 +10,7 @@ const createNewOrganization = async (newOrganization) => {
 
         const isAlreadyAdded = await Organization().findOne({
             where: { email: newOrganization.email },
+            attributes: ["email"],
         });
         if (isAlreadyAdded) {
             throw {

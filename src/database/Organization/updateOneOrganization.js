@@ -1,17 +1,9 @@
-const { Organization } = require("./organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 
 const updateOneOrganization = async (organizationId, changes) => {
-    try {
-        const confirmIdParam = await Organization().findOne({
-            where: { id: organizationId },
-        });
-        if (!confirmIdParam) {
-            throw {
-                status: 404,
-                message: `Can't find an organization with the id '${organizationId}'`,
-            };
-        }
+    await checkOrganization(organizationId);
 
+    try {
         const updateOrganization = await Organization().update(
             { ...changes },
             { where: { id: organizationId } }

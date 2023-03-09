@@ -4,6 +4,7 @@ const deleteOneOrganization = async (organizationId) => {
     try {
         const organization = await Organization().destroy({
             where: { id: organizationId },
+            attributes: ["id"],
         });
         if (!organization) {
             throw {
