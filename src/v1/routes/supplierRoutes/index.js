@@ -15,7 +15,7 @@ const { updateOneAddress } = require("../../../controllers/supplierAddress");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
-//Import the required organization schemas
+//Import the required supplier schemas
 const { physicalAddress } = require("../../../schemas/addressSchema");
 const { newSupplier } = require("../../../schemas/supplierSchemas/newSupplier");
 

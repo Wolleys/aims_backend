@@ -15,7 +15,7 @@ const { updateOneAddress } = require("../../../controllers/clientAddress");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
-//Import the required organization schemas
+//Import the required client schemas
 const { physicalAddress } = require("../../../schemas/addressSchema");
 const { newClient } = require("../../../schemas/clientSchema/newClient");
 

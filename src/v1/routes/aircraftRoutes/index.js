@@ -14,7 +14,7 @@ const {
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
-//Import the required organization schemas
+//Import the required aircraft schemas
 const { aircraftSchema } = require("../../../schemas/aircraftSchema");
 
 //Required parameters for this route
