@@ -7,6 +7,7 @@ const deleteOneAircraft = async (organizationId, aircraftId) => {
     try {
         const aircraft = await Aircraft().destroy({
             where: { id: aircraftId, organizationId },
+            attributes: ["id", "organizationId"],
         });
         if (!aircraft) {
             throw {

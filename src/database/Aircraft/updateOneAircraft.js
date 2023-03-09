@@ -7,6 +7,7 @@ const updateOneAircraft = async(organizationId, aircraftId, changes) => {
 
     const aircraftExists = await Aircraft().findOne({
         where: { id: aircraftId, organizationId },
+        attributes: ["id", "organizationId"],
     });
     if (!aircraftExists) {
         throw {
@@ -17,6 +18,7 @@ const updateOneAircraft = async(organizationId, aircraftId, changes) => {
 
     const clientExists = await Client().findOne({
         where: { id: changes.client_id, organizationId },
+        attributes: ["id", "organizationId"],
     });
     if (!clientExists) {
         throw {
