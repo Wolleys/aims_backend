@@ -1,19 +1,11 @@
 const { Client } = require("./clientModel");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 const { ClientAvatar } = require("../ClientAvatar/clientAvatarModel");
 const { ClientAddress } = require("../ClientAddress/clientAddressModel");
 
 const getOneClient = async(organizationId, clientId) => {
-    const confirmIdParam = await Organization().findOne({
-        where: { id: organizationId },
-    });
-    if (!confirmIdParam) {
-        throw {
-            status: 404,
-            message: `Can't find an organization with the id '${organizationId}'`,
-        };
-    }
-
+    await checkOrganization(organizationId);
+    
     try {
         const client = await Client().findOne({
             where: { id: clientId, organizationId },

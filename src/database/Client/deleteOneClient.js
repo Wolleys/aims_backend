@@ -1,16 +1,9 @@
 const { Client } = require("./clientModel");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 
 const deleteOneClient = async(organizationId, clientId) => {
-    const organizationExists = await Organization().findOne({
-        where: { id: organizationId },
-    });
-    if (!organizationExists) {
-        throw {
-            status: 404,
-            message: `Can't find an organization with the id '${organizationId}'`,
-        };
-    }
+    await checkOrganization(organizationId);
+    
     try {
         const client = await Client().destroy({
             where: { id: clientId, organizationId },

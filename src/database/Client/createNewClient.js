@@ -1,6 +1,6 @@
 const { Client } = require("./clientModel");
 const { sequelize } = require("../dbConfig");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 const { ClientAvatar } = require("../ClientAvatar/clientAvatarModel");
 const { ClientAddress } = require("../ClientAddress/clientAddressModel");
 
@@ -8,16 +8,7 @@ const createNewClient = async (newClient, organizationId) => {
     let transaction;
     try {
         transaction = await sequelize.transaction();
-
-        const confirmIdParam = await Organization().findOne({
-            where: { id: organizationId },
-        });
-        if (!confirmIdParam) {
-            throw {
-                status: 404,
-                message: `Can't find an organization with the id '${organizationId}'`,
-            };
-        }
+        await checkOrganization(organizationId);
 
         const isAlreadyAdded = await Client().findOne({
             where: { email: newClient.email },

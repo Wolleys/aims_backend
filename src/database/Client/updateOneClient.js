@@ -1,16 +1,8 @@
 const { Client } = require("./clientModel");
-const { Organization } = require("../Organization/organizationModel");
+const { checkOrganization } = require("../helpers/checkOrganization");
 
 const updateOneClient = async(organizationId, clientId, changes) => {
-    const organizationExixts = await Organization().findOne({
-        where: { id: organizationId },
-    });
-    if (!organizationExixts) {
-        throw {
-            status: 404,
-            message: `Can't find an organization with the id '${organizationId}'`,
-        };
-    }
+    await checkOrganization(organizationId);
 
     const clientExists = await Client().findOne({
         where: { id: clientId, organizationId },
