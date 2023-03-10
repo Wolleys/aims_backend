@@ -20,6 +20,7 @@ const getAllUsers = async (organizationId) => {
                 "staff_number",
                 "user_role",
                 "email",
+                "user_status",
             ],
             include: [
                 {

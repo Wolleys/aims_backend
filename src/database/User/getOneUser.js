@@ -19,6 +19,7 @@ const getOneUser = async (organizationId, userId) => {
                 "staff_number",
                 "user_role",
                 "email",
+                "user_status",
             ],
             include: [
                 {
