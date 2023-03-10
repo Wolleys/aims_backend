@@ -19,7 +19,6 @@ function createNewUser(sequelize) {
         id_number: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         phone_number: {
             type: DataTypes.STRING,
@@ -36,7 +35,6 @@ function createNewUser(sequelize) {
         staff_number: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         user_role: {
             type: DataTypes.STRING,
@@ -45,7 +43,6 @@ function createNewUser(sequelize) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         user_status: {
             type: DataTypes.STRING,
