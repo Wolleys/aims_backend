@@ -10,11 +10,49 @@ const {
     deleteOneEngineer,
 } = require("../../../controllers/engineerController");
 
-//All engineer routes
-router.get("/", getAllEngineers);
-router.get("/:engineerId", getOneEngineer);
-router.post("/", createNewEngineer);
-router.patch("/:engineerId", updateOneEngineer);
-router.delete("/:engineerId", deleteOneEngineer);
+//Import middlewares
+const { requireParams } = require("../../../middlewares/checkParams");
+const { validateSchema } = require("../../../middlewares/validateSchema");
+
+//Import the required user schemas
+const { engineerSchema } = require("../../../schemas/engineerSchema");
+
+//Required parameters for this route
+const singleParam = ["organizationId"];
+const multipleParams = ["organizationId", "engineerId"];
+
+//Engineer routes
+// 1. Get all engineers from a specific organization
+router.get("/:organizationId", requireParams(singleParam), getAllEngineers);
+
+// 2. Get one engineer from a specific organization by id
+router.get(
+    "/:organizationId/:engineerId",
+    requireParams(multipleParams),
+    getOneEngineer
+);
+
+// 3. Create a new engineer to a specific organization
+router.post(
+    "/:organizationId",
+    requireParams(singleParam),
+    validateSchema(engineerSchema),
+    createNewEngineer
+);
+
+// 4. Update one engineer from a specific organization by id
+router.patch(
+    "/:organizationId/:engineerId",
+    requireParams(multipleParams),
+    validateSchema(engineerSchema),
+    updateOneEngineer
+);
+
+// 5. Delete one engineer from a specific organization by id
+router.delete(
+    "/:organizationId/:engineerId",
+    requireParams(multipleParams),
+    deleteOneEngineer
+);
 
 module.exports = router;
