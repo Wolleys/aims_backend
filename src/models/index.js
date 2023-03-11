@@ -1,6 +1,7 @@
 const { setupUnitModels } = require("./unitModel/setupModels");
 const { setupUserModels } = require("./userModel/setupModels");
 const { setupClientModels } = require("./clientModel/setupModels");
+const { setupEngineerModels } = require("./engineerModel/setupModels");
 const { setupAircraftModels } = require("./aircraftModel/setupModels");
 const { setupSupplierModels } = require("./supplierModel/setupModels");
 const { setupOrganizationModels } = require("./organizationModel/setupModels");
@@ -11,6 +12,7 @@ function setupModels(sequelize) {
         const userModels = setupUserModels(sequelize);
         const clientModels = setupClientModels(sequelize);
         const aircraftModel = setupAircraftModels(sequelize);
+        const engineerModels = setupEngineerModels(sequelize);
         const supplierModels = setupSupplierModels(sequelize);
         const organizationModels = setupOrganizationModels(sequelize);
 
@@ -45,11 +47,18 @@ function setupModels(sequelize) {
         });
         userModels.User.belongsTo(organizationModels.Organization);
 
+        // 6. Organization has many engineers (hasMany) 1:n
+        organizationModels.Organization.hasMany(engineerModels.Engineer, {
+            onDelete: "CASCADE",
+        });
+        engineerModels.Engineer.belongsTo(organizationModels.Organization);
+
         return {
             ...unitModel,
             ...userModels,
             ...clientModels,
             ...aircraftModel,
+            ...engineerModels,
             ...supplierModels,
             ...organizationModels,
         };
