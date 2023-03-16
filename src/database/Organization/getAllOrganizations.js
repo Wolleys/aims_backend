@@ -1,6 +1,10 @@
 const { Organization } = require("./organizationModel");
-const { OrganizationAvatar } = require("../OrganizationAvatar/organizationAvatarModel");
-const { OrganizationAddress } = require("../OrganizationAddress/organizationAddressModel");
+const {
+    OrganizationAvatar,
+} = require("../OrganizationAvatar/organizationAvatarModel");
+const {
+    OrganizationAddress,
+} = require("../OrganizationAddress/organizationAddressModel");
 
 const getAllOrganizations = async () => {
     try {
@@ -19,6 +23,7 @@ const getAllOrganizations = async () => {
             include: [
                 {
                     model: OrganizationAddress(),
+                    as: "address",
                     attributes: [
                         "id",
                         "country",
@@ -31,6 +36,7 @@ const getAllOrganizations = async () => {
                 },
                 {
                     model: OrganizationAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

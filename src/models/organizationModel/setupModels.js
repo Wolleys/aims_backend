@@ -13,10 +13,12 @@ function setupOrganizationModels(sequelize) {
         Organization.hasOne(OrganizationAvatar, {
             onDelete: "CASCADE",
             foreignKey: "organization_id",
+            as: "avatar",
         });
         Organization.hasOne(OrganizationAddress, {
             onDelete: "CASCADE",
             foreignKey: "organization_id",
+            as: "address",
         });
 
         return {
