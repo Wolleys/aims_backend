@@ -22,6 +22,7 @@ const getOneSupplier = async (organizationId, supplierId) => {
             include: [
                 {
                     model: SupplierAddress(),
+                    as: "address",
                     attributes: [
                         "id",
                         "country",
@@ -34,6 +35,7 @@ const getOneSupplier = async (organizationId, supplierId) => {
                 },
                 {
                     model: SupplierAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

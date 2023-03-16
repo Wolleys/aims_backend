@@ -13,10 +13,12 @@ function setupSupplierModels(sequelize) {
         Supplier.hasOne(SupplierAvatar, {
             onDelete: "CASCADE",
             foreignKey: "supplier_id",
+            as: "avatar",
         });
         Supplier.hasOne(SupplierAddress, {
             onDelete: "CASCADE",
             foreignKey: "supplier_id",
+            as: "address",
         });
 
         return {
