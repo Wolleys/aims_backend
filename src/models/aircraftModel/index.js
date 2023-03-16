@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewAircraft(sequelize) {
-    const Aircrafts = sequelize.define("aircrafts", {
+    const Aircraft = sequelize.define("aircraft", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
@@ -18,7 +18,7 @@ function createNewAircraft(sequelize) {
         }
     });
 
-    return Aircrafts;
+    return Aircraft;
 }
 
 module.exports = { createNewAircraft };

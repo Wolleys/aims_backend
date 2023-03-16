@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewClient(sequelize) {
-    const Clients = sequelize.define("clients", {
+    const Client = sequelize.define("client", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
@@ -39,7 +39,7 @@ function createNewClient(sequelize) {
         },
     });
 
-    return Clients;
+    return Client;
 }
 
 module.exports = { createNewClient };

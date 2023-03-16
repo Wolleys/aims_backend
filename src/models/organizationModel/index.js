@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewOrganization(sequelize) {
-    const Organizations = sequelize.define("organizations", {
+    const Organization = sequelize.define("organization", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
@@ -43,7 +43,7 @@ function createNewOrganization(sequelize) {
         },
     });
 
-    return Organizations;
+    return Organization;
 }
 
 module.exports = { createNewOrganization };

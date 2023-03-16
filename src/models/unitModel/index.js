@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewUnit(sequelize) {
-    const Units = sequelize.define("units", {
+    const Unit = sequelize.define("unit", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
@@ -14,7 +14,7 @@ function createNewUnit(sequelize) {
         },
     });
 
-    return Units;
+    return Unit;
 }
 
 module.exports = { createNewUnit };

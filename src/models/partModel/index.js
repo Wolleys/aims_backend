@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewPart(sequelize) {
-    const Parts = sequelize.define("parts", {
+    const Part = sequelize.define("part", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
@@ -54,7 +54,7 @@ function createNewPart(sequelize) {
         },
     });
 
-    return Parts;
+    return Part;
 }
 
 module.exports = { createNewPart };

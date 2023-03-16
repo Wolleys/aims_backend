@@ -11,7 +11,7 @@ const partSchema = yup.object({
     reorder_level: yup.number().min(0).required("Required"),
     supplier_id: yup.string().required("Required"),
     part_status: yup.string().required("Required"),
-    measure_id: yup.string().required("Required"),
+    unit_id: yup.string().required("Required"),
     location: yup.string().required("Required"),
     date_of_production: yup.date().required("Required"),
     shelf_life: yup.number().min(0).required("Required"),

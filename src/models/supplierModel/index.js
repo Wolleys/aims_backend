@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewSupplier(sequelize) {
-    const Suppliers = sequelize.define("suppliers", {
+    const Supplier = sequelize.define("supplier", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
@@ -39,7 +39,7 @@ function createNewSupplier(sequelize) {
         },
     });
 
-    return Suppliers;
+    return Supplier;
 }
 
 module.exports = { createNewSupplier };

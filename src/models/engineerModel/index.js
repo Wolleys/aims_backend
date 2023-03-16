@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function createNewEngineer(sequelize) {
-    const Engineer = sequelize.define("engineers", {
+    const Engineer = sequelize.define("engineer", {
         id: {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
