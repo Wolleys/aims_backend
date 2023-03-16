@@ -6,8 +6,8 @@ const deleteOneClient = async (organizationId, clientId) => {
 
     try {
         const client = await Client().destroy({
-            where: { id: clientId, organizationId },
-            attributes: ["id", "organizationId"],
+            where: { id: clientId, organization_id: organizationId },
+            attributes: ["id", "organization_id"],
         });
         if (!client) {
             throw {

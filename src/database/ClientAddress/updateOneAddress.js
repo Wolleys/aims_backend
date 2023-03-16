@@ -5,8 +5,8 @@ const updateOneAddress = async (organizationId, clientId, changes) => {
     await checkOrganization(organizationId);
 
     const clientExists = await ClientAddress().findOne({
-        where: { clientId },
-        attributes: ["clientId"],
+        where: { client_id: clientId },
+        attributes: ["client_id"],
     });
     if (!clientExists) {
         throw {
@@ -18,7 +18,7 @@ const updateOneAddress = async (organizationId, clientId, changes) => {
     try {
         const addressToUpdate = await ClientAddress().update(
             { ...changes },
-            { where: { clientId } }
+            { where: { client_id: clientId } }
         );
         if (!addressToUpdate) {
             throw {
@@ -28,7 +28,7 @@ const updateOneAddress = async (organizationId, clientId, changes) => {
         }
 
         const returnUpdatedAddress = await ClientAddress().findOne({
-            where: { clientId },
+            where: { client_id: clientId },
             attributes: [
                 "id",
                 "country",

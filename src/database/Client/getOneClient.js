@@ -3,12 +3,12 @@ const { checkOrganization } = require("../helpers/checkOrganization");
 const { ClientAvatar } = require("../ClientAvatar/clientAvatarModel");
 const { ClientAddress } = require("../ClientAddress/clientAddressModel");
 
-const getOneClient = async(organizationId, clientId) => {
+const getOneClient = async (organizationId, clientId) => {
     await checkOrganization(organizationId);
-    
+
     try {
         const client = await Client().findOne({
-            where: { id: clientId, organizationId },
+            where: { id: clientId, organization_id: organizationId },
             attributes: [
                 "id",
                 "first_name",
@@ -22,6 +22,7 @@ const getOneClient = async(organizationId, clientId) => {
             include: [
                 {
                     model: ClientAddress(),
+                    as: "address",
                     attributes: [
                         "id",
                         "country",
@@ -34,6 +35,7 @@ const getOneClient = async(organizationId, clientId) => {
                 },
                 {
                     model: ClientAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

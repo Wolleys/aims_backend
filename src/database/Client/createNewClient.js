@@ -32,11 +32,11 @@ const createNewClient = async (newClient, organizationId) => {
             city: newClient.city,
             region: newClient.region,
             postal_code: newClient.postal_code,
-            clientId: createdClient.id,
+            client_id: createdClient.id,
         };
 
         const avatar = {
-            clientId: createdClient.id,
+            client_id: createdClient.id,
         };
 
         await ClientAvatar().create(avatar, { transaction });

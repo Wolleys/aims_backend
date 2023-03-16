@@ -10,18 +10,22 @@ function setupClientModels(sequelize) {
         const ClientAddress = createClientAddress(sequelize);
 
         // *** Client 1:1 association ***
-        // Client has one avatar (belongsTo) 1:1
-        // Client has one address (belongsTo) 1:1
-        Client.hasOne(ClientAvatar, { onDelete: "CASCADE" });
-        Client.hasOne(ClientAddress, { onDelete: "CASCADE" });
-        ClientAvatar.belongsTo(Client);
-        ClientAddress.belongsTo(Client);
-        
+        Client.hasOne(ClientAvatar, {
+            onDelete: "CASCADE",
+            foreignKey: "client_id",
+            as: "avatar",
+        });
+        Client.hasOne(ClientAddress, {
+            onDelete: "CASCADE",
+            foreignKey: "client_id",
+            as: "address",
+        });
+
         return {
             Client,
             ClientAvatar,
-            ClientAddress
-        }
+            ClientAddress,
+        };
     } catch (error) {
         throw error;
     }

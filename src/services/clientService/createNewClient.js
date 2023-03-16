@@ -3,7 +3,7 @@ const Client = require("../../database/Client");
 const createNewClient = (newClient, organizationId) => {
     const clientToInsert = {
         ...newClient,
-        organizationId,
+        organization_id: organizationId,
     };
 
     try {

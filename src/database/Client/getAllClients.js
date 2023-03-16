@@ -5,11 +5,11 @@ const { ClientAddress } = require("../ClientAddress/clientAddressModel");
 
 const getAllClients = async (organizationId) => {
     await checkOrganization(organizationId);
-    
+
     try {
         const allClients = await Client().findAll({
-            where: { organizationId },
-            order: [["createdAt", "DESC"]],
+            where: { organization_id: organizationId },
+            order: [["created_at", "DESC"]],
             attributes: [
                 "id",
                 "first_name",
@@ -23,6 +23,7 @@ const getAllClients = async (organizationId) => {
             include: [
                 {
                     model: ClientAddress(),
+                    as: "address",
                     attributes: [
                         "id",
                         "country",
@@ -35,6 +36,7 @@ const getAllClients = async (organizationId) => {
                 },
                 {
                     model: ClientAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],
