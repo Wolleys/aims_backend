@@ -32,11 +32,11 @@ const createNewSupplier = async (newSupplier, organizationId) => {
             city: newSupplier.city,
             region: newSupplier.region,
             postal_code: newSupplier.postal_code,
-            supplierId: createdSupplier.id,
+            supplier_id: createdSupplier.id,
         };
 
         const avatar = {
-            supplierId: createdSupplier.id,
+            supplier_id: createdSupplier.id,
         };
 
         await SupplierAvatar().create(avatar, { transaction });

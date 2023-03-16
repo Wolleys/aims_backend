@@ -8,7 +8,7 @@ const getOneSupplier = async (organizationId, supplierId) => {
 
     try {
         const supplier = await Supplier().findOne({
-            where: { id: supplierId, organizationId },
+            where: { id: supplierId, organization_id: organizationId },
             attributes: [
                 "id",
                 "first_name",

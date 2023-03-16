@@ -3,7 +3,7 @@ const Supplier = require("../../database/Supplier");
 const createNewSupplier = (newSupplier, organizationId) => {
     const supplierToInsert = {
         ...newSupplier,
-        organizationId,
+        organization_id: organizationId,
     };
 
     try {

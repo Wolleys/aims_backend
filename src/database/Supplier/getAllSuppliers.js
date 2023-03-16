@@ -3,13 +3,13 @@ const { checkOrganization } = require("../helpers/checkOrganization");
 const { SupplierAvatar } = require("../SupplierAvatar/supplierAvatarModel");
 const { SupplierAddress } = require("../SupplierAddress/supplierAddressModel");
 
-const getAllSuppliers = async(organizationId) => {
+const getAllSuppliers = async (organizationId) => {
     await checkOrganization(organizationId);
-    
+
     try {
         const allSuppliers = await Supplier().findAll({
-            where: { organizationId },
-            order: [["createdAt", "DESC"]],
+            where: { organization_id: organizationId },
+            order: [["created_at", "DESC"]],
             attributes: [
                 "id",
                 "first_name",

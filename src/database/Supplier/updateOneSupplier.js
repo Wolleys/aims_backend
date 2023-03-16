@@ -5,8 +5,8 @@ const updateOneSupplier = async (organizationId, supplierId, changes) => {
     await checkOrganization(organizationId);
 
     const supplierExists = await Supplier().findOne({
-        where: { id: supplierId, organizationId },
-        attributes: ["id", "organizationId"],
+        where: { id: supplierId, organization_id: organizationId },
+        attributes: ["id", "organization_id"],
     });
     if (!supplierExists) {
         throw {
@@ -18,7 +18,7 @@ const updateOneSupplier = async (organizationId, supplierId, changes) => {
     try {
         const updateSupplier = await Supplier().update(
             { ...changes },
-            { where: { id: supplierId, organizationId } }
+            { where: { id: supplierId, organization_id: organizationId } }
         );
         if (!updateSupplier) {
             throw {
@@ -28,7 +28,7 @@ const updateOneSupplier = async (organizationId, supplierId, changes) => {
         }
 
         const returnUpdatedSupplier = await Supplier().findOne({
-            where: { id: supplierId, organizationId },
+            where: { id: supplierId, organization_id: organizationId },
             attributes: [
                 "id",
                 "first_name",

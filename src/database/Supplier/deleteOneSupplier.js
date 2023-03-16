@@ -6,8 +6,8 @@ const deleteOneSupplier = async (organizationId, supplierId) => {
     
     try {
         const supplier = await Supplier().destroy({
-            where: { id: supplierId, organizationId },
-            attributes: ["id", "organizationId"],
+            where: { id: supplierId, organization_id: organizationId },
+            attributes: ["id", "organization_id"],
         });
         if (!supplier) {
             throw {

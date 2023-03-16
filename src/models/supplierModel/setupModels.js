@@ -10,18 +10,20 @@ function setupSupplierModels(sequelize) {
         const SupplierAddress = createSupplierAddress(sequelize);
 
         // *** Supplier 1:1 association ***
-        // Supplier has one avatar (belongsTo) 1:1
-        // Supplier has one address (belongsTo) 1:1
-        Supplier.hasOne(SupplierAvatar, { onDelete: "CASCADE" });
-        Supplier.hasOne(SupplierAddress, { onDelete: "CASCADE" });
-        SupplierAvatar.belongsTo(Supplier);
-        SupplierAddress.belongsTo(Supplier);
-        
+        Supplier.hasOne(SupplierAvatar, {
+            onDelete: "CASCADE",
+            foreignKey: "supplier_id",
+        });
+        Supplier.hasOne(SupplierAddress, {
+            onDelete: "CASCADE",
+            foreignKey: "supplier_id",
+        });
+
         return {
             Supplier,
             SupplierAvatar,
-            SupplierAddress
-        }
+            SupplierAddress,
+        };
     } catch (error) {
         throw error;
     }
