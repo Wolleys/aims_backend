@@ -30,11 +30,11 @@ const createNewOrganization = async (newOrganization) => {
             city: newOrganization.city,
             region: newOrganization.region,
             postal_code: newOrganization.postal_code,
-            organizationId: createdOrganization.id,
+            organization_id: createdOrganization.id,
         };
 
         const avatar = {
-            organizationId: createdOrganization.id,
+            organization_id: createdOrganization.id,
         }
 
         await OrganizationAddress().create(address, { transaction });

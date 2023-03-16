@@ -10,12 +10,14 @@ function setupOrganizationModels(sequelize) {
         const OrganizationAddress = createOrganizationAddress(sequelize);
 
         // *** Organization 1:1 association ***
-        // Organization has one avatar (belongsTo) 1:1
-        // Organization has one address (belongsTo) 1:1
-        Organization.hasOne(OrganizationAvatar, { onDelete: "CASCADE" });
-        Organization.hasOne(OrganizationAddress, { onDelete: "CASCADE" });
-        OrganizationAvatar.belongsTo(Organization);
-        OrganizationAddress.belongsTo(Organization);
+        Organization.hasOne(OrganizationAvatar, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
+        Organization.hasOne(OrganizationAddress, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
 
         return {
             Organization,

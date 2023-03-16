@@ -5,7 +5,7 @@ const { OrganizationAddress } = require("../OrganizationAddress/organizationAddr
 const getAllOrganizations = async () => {
     try {
         const allOrganizations = await Organization().findAll({
-            order: [["createdAt", "DESC"]],
+            order: [["created_at", "DESC"]],
             attributes: [
                 "id",
                 "first_name",
