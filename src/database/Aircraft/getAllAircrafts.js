@@ -6,9 +6,9 @@ const getAllAircrafts = async (organizationId) => {
 
     try {
         const allAircrafts = await Aircraft().findAll({
-            where: { organizationId },
-            order: [["createdAt", "DESC"]],
-            attributes: ["id", "aircraft_reg", "aircraft_type", "clientId"],
+            where: { organization_id: organizationId },
+            order: [["created_at", "DESC"]],
+            attributes: ["id", "aircraft_reg", "aircraft_type", "client_id"],
         });
         return allAircrafts;
     } catch (error) {

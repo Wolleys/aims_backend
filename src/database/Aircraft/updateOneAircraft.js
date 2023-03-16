@@ -2,12 +2,12 @@ const { Aircraft } = require("./aircraftModel");
 const { Client } = require("../Client/clientModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
-const updateOneAircraft = async(organizationId, aircraftId, changes) => {
+const updateOneAircraft = async (organizationId, aircraftId, changes) => {
     await checkOrganization(organizationId);
 
     const aircraftExists = await Aircraft().findOne({
-        where: { id: aircraftId, organizationId },
-        attributes: ["id", "organizationId"],
+        where: { id: aircraftId, organization_id: organizationId },
+        attributes: ["id", "organization_id"],
     });
     if (!aircraftExists) {
         throw {
@@ -17,8 +17,8 @@ const updateOneAircraft = async(organizationId, aircraftId, changes) => {
     }
 
     const clientExists = await Client().findOne({
-        where: { id: changes.client_id, organizationId },
-        attributes: ["id", "organizationId"],
+        where: { id: changes.client_id, organization_id: organizationId },
+        attributes: ["id", "organization_id"],
     });
     if (!clientExists) {
         throw {
@@ -30,7 +30,7 @@ const updateOneAircraft = async(organizationId, aircraftId, changes) => {
     try {
         const updateAircraft = await Aircraft().update(
             { ...changes },
-            { where: { id: aircraftId, organizationId } }
+            { where: { id: aircraftId, organization_id: organizationId } }
         );
         if (!updateAircraft) {
             throw {
@@ -40,8 +40,8 @@ const updateOneAircraft = async(organizationId, aircraftId, changes) => {
         }
 
         const returnUpdatedAircraft = await Aircraft().findOne({
-            where: { id: aircraftId, organizationId },
-            attributes: ["id", "aircraft_reg", "aircraft_type", "clientId"],
+            where: { id: aircraftId, organization_id: organizationId },
+            attributes: ["id", "aircraft_reg", "aircraft_type", "client_id"],
         });
         return returnUpdatedAircraft;
     } catch (error) {

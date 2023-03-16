@@ -6,8 +6,8 @@ const getOneAircraft = async (organizationId, aircraftId) => {
 
     try {
         const aircraft = await Aircraft().findOne({
-            where: { id: aircraftId, organizationId },
-            attributes: ["id", "aircraft_reg", "aircraft_type", "clientId"],
+            where: { id: aircraftId, organization_id: organizationId },
+            attributes: ["id", "aircraft_reg", "aircraft_type", "client_id"],
         });
         if (!aircraft) {
             throw {

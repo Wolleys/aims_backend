@@ -6,8 +6,8 @@ const createNewAircraft = async (organizationId, newAircraft) => {
     await checkOrganization(organizationId);
 
     const clientExists = await Client().findOne({
-        where: { id: newAircraft.client_id, organizationId },
-        attributes: ["id", "organizationId"],
+        where: { id: newAircraft.client_id, organization_id: organizationId },
+        attributes: ["id", "organization_id"],
     });
     if (!clientExists) {
         throw {
@@ -17,8 +17,11 @@ const createNewAircraft = async (organizationId, newAircraft) => {
     }
 
     const isAlreadyAdded = await Aircraft().findOne({
-        where: { aircraft_reg: newAircraft.aircraft_reg, organizationId },
-        attributes: ["aircraft_reg", "organizationId"],
+        where: {
+            aircraft_reg: newAircraft.aircraft_reg,
+            organization_id: organizationId,
+        },
+        attributes: ["aircraft_reg", "organization_id"],
     });
     if (isAlreadyAdded) {
         throw {

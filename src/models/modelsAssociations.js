@@ -11,7 +11,7 @@ function modelsAssociations(sequelize) {
         // const unitModel = setupUnitModels(sequelize);
         // const userModels = setupUserModels(sequelize);
         const clientModels = setupClientModels(sequelize);
-        // const aircraftModel = setupAircraftModels(sequelize);
+        const aircraftModel = setupAircraftModels(sequelize);
         // const engineerModels = setupEngineerModels(sequelize);
         const supplierModels = setupSupplierModels(sequelize);
         const organizationModels = setupOrganizationModels(sequelize);
@@ -28,11 +28,17 @@ function modelsAssociations(sequelize) {
             foreignKey: "organization_id",
         });
 
-        // // 3. Client has many aircrafts (hasMany) 1:n
-        // clientModels.Client.hasMany(aircraftModel.Aircraft, {
-        //     onDelete: "CASCADE",
-        // });
-        // aircraftModel.Aircraft.belongsTo(organizationModels.Organization);
+        // 3. Client has many aircrafts (hasMany) 1:n
+        clientModels.Client.hasMany(aircraftModel.Aircraft, {
+            onDelete: "CASCADE",
+            foreignKey: "client_id",
+        });
+
+        // 4. Organization has many aircrafts (hasMany) 1:n
+        organizationModels.Organization.hasMany(aircraftModel.Aircraft, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
 
         // // 4. Organization has many units (hasMany) 1:n
         // organizationModels.Organization.hasMany(unitModel.Unit, {
@@ -56,7 +62,7 @@ function modelsAssociations(sequelize) {
             // ...unitModel,
             // ...userModels,
             ...clientModels,
-            // ...aircraftModel,
+            ...aircraftModel,
             // ...engineerModels,
             ...supplierModels,
             ...organizationModels,

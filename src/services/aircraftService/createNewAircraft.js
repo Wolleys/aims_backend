@@ -3,8 +3,8 @@ const Aircraft = require("../../database/Aircraft");
 const createNewAircraft = (organizationId, newAircraft) => {
     const aircraftToInsert = {
         ...newAircraft,
-        organizationId,
-        clientId: newAircraft.client_id,
+        organization_id: organizationId,
+        client_id: newAircraft.client_id,
     };
 
     try {
