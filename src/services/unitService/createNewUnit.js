@@ -3,7 +3,7 @@ const Unit = require("../../database/Unit");
 const createNewUnit = (organizationId, newUnit) => {
     const unitToInsert = {
         ...newUnit,
-        organizationId,
+        organization_id: organizationId,
     };
 
     try {

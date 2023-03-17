@@ -8,7 +8,7 @@ const { setupOrganizationModels } = require("./organizationModel/setupModels");
 
 function modelsAssociations(sequelize) {
     try {
-        // const unitModel = setupUnitModels(sequelize);
+        const unitModel = setupUnitModels(sequelize);
         // const userModels = setupUserModels(sequelize);
         const clientModels = setupClientModels(sequelize);
         const aircraftModel = setupAircraftModels(sequelize);
@@ -40,11 +40,11 @@ function modelsAssociations(sequelize) {
             foreignKey: "organization_id",
         });
 
-        // // 4. Organization has many units (hasMany) 1:n
-        // organizationModels.Organization.hasMany(unitModel.Unit, {
-        //     onDelete: "CASCADE",
-        // });
-        // unitModel.Unit.belongsTo(organizationModels.Organization);
+        // 5. Organization has many units (hasMany) 1:n
+        organizationModels.Organization.hasMany(unitModel.Unit, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
 
         // // 5. Organization has many users (hasMany) 1:n
         // organizationModels.Organization.hasMany(userModels.User, {
@@ -59,7 +59,7 @@ function modelsAssociations(sequelize) {
         // engineerModels.Engineer.belongsTo(organizationModels.Organization);
 
         return {
-            // ...unitModel,
+            ...unitModel,
             // ...userModels,
             ...clientModels,
             ...aircraftModel,

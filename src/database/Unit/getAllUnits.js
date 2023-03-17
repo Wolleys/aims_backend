@@ -6,7 +6,7 @@ const getAllUnits = async (organizationId) => {
 
     try {
         const allUnits = await Unit().findAll({
-            where: { organizationId },
+            where: { organization_id: organizationId },
             order: [["unit_name", "ASC"]],
             attributes: ["id", "unit_name"],
         });

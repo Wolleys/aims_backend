@@ -1,13 +1,13 @@
 const { Unit } = require("./unitModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
-const deleteOneUnit = async(organizationId, unitId) => {
+const deleteOneUnit = async (organizationId, unitId) => {
     await checkOrganization(organizationId);
 
     try {
         const unit = await Unit().destroy({
-            where: { id: unitId, organizationId },
-            attributes: ["id", "organizationId"],
+            where: { id: unitId, organization_id: organizationId },
+            attributes: ["id", "organization_id"],
         });
         if (!unit) {
             throw {

@@ -6,7 +6,7 @@ const getOneUnit = async (organizationId, unitId) => {
 
     try {
         const unit = await Unit().findOne({
-            where: { id: unitId, organizationId },
+            where: { id: unitId, organization_id: organizationId },
             attributes: ["id", "unit_name"],
         });
         if (!unit) {

@@ -5,8 +5,8 @@ const updateOneUnit = async (organizationId, unitId, changes) => {
     await checkOrganization(organizationId);
 
     const unitExists = await Unit().findOne({
-        where: { id: unitId, organizationId },
-        attributes: ["id", "organizationId"],
+        where: { id: unitId, organization_id: organizationId },
+        attributes: ["id", "organization_id"],
     });
     if (!unitExists) {
         throw {
@@ -18,7 +18,7 @@ const updateOneUnit = async (organizationId, unitId, changes) => {
     try {
         const updateUnit = await Unit().update(
             { ...changes },
-            { where: { id: unitId, organizationId } }
+            { where: { id: unitId, organization_id: organizationId } }
         );
         if (!updateUnit) {
             throw {
@@ -28,7 +28,7 @@ const updateOneUnit = async (organizationId, unitId, changes) => {
         }
 
         const returnUpdatedUnit = await Unit().findOne({
-            where: { id: unitId, organizationId },
+            where: { id: unitId, organization_id: organizationId },
             attributes: ["id", "unit_name"],
         });
         return returnUpdatedUnit;

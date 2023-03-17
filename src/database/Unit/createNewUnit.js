@@ -5,8 +5,8 @@ const createNewUnit = async (organizationId, newUnit) => {
     await checkOrganization(organizationId);
 
     const isAlreadyAdded = await Unit().findOne({
-        where: { unit_name: newUnit.unit_name, organizationId },
-        attributes: ["unit_name", "organizationId"],
+        where: { unit_name: newUnit.unit_name, organization_id: organizationId },
+        attributes: ["unit_name", "organization_id"],
     });
     if (isAlreadyAdded) {
         throw {
