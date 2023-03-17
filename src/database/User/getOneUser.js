@@ -7,7 +7,7 @@ const getOneUser = async (organizationId, userId) => {
 
     try {
         const user = await User().findOne({
-            where: { id: userId, organizationId },
+            where: { id: userId, organization_id: organizationId },
             attributes: [
                 "id",
                 "first_name",
@@ -24,6 +24,7 @@ const getOneUser = async (organizationId, userId) => {
             include: [
                 {
                     model: UserAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

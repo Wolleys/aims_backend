@@ -6,8 +6,8 @@ const deleteOneUser = async(organizationId, userId) => {
 
     try {
         const user = await User().destroy({
-            where: { id: userId, organizationId },
-            attributes: ["id", "organizationId"],
+            where: { id: userId, organization_id: organizationId },
+            attributes: ["id", "organization_id"],
         });
         if (!user) {
             throw {

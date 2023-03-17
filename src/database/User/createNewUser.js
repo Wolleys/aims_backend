@@ -10,8 +10,8 @@ const createNewUser = async (organizationId, newUser) => {
         await checkOrganization(organizationId);
 
         const isIdNumber = await User().findOne({
-            where: { id_number: newUser.id_number, organizationId },
-            attributes: ["id_number", "organizationId"],
+            where: { id_number: newUser.id_number, organization_id: organizationId },
+            attributes: ["id_number", "organization_id"],
         });
         if (isIdNumber) {
             throw {
@@ -21,8 +21,11 @@ const createNewUser = async (organizationId, newUser) => {
         }
 
         const isStaffNumber = await User().findOne({
-            where: { staff_number: newUser.staff_number, organizationId },
-            attributes: ["staff_number", "organizationId"],
+            where: {
+                staff_number: newUser.staff_number,
+                organization_id: organizationId,
+            },
+            attributes: ["staff_number", "organization_id"],
         });
         if (isStaffNumber) {
             throw {
@@ -32,8 +35,8 @@ const createNewUser = async (organizationId, newUser) => {
         }
 
         const isEmail = await User().findOne({
-            where: { email: newUser.email, organizationId },
-            attributes: ["email", "organizationId"],
+            where: { email: newUser.email, organization_id: organizationId },
+            attributes: ["email", "organization_id"],
         });
         if (isEmail) {
             throw {
@@ -47,7 +50,7 @@ const createNewUser = async (organizationId, newUser) => {
         });
 
         const avatar = {
-            userId: createdUser.id,
+            user_id: createdUser.id,
         };
 
         await UserAvatar().create(avatar, { transaction });

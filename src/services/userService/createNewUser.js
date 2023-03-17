@@ -3,7 +3,7 @@ const User = require("../../database/User");
 const createNewUser = (organizationId, newUser) => {
     const userToInsert = {
         ...newUser,
-        organizationId,
+        organization_id: organizationId,
     };
 
     try {

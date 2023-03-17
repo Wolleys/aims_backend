@@ -9,7 +9,7 @@ const { setupOrganizationModels } = require("./organizationModel/setupModels");
 function modelsAssociations(sequelize) {
     try {
         const unitModel = setupUnitModels(sequelize);
-        // const userModels = setupUserModels(sequelize);
+        const userModels = setupUserModels(sequelize);
         const clientModels = setupClientModels(sequelize);
         const aircraftModel = setupAircraftModels(sequelize);
         // const engineerModels = setupEngineerModels(sequelize);
@@ -46,11 +46,11 @@ function modelsAssociations(sequelize) {
             foreignKey: "organization_id",
         });
 
-        // // 5. Organization has many users (hasMany) 1:n
-        // organizationModels.Organization.hasMany(userModels.User, {
-        //     onDelete: "CASCADE",
-        // });
-        // userModels.User.belongsTo(organizationModels.Organization);
+        // 6. Organization has many users (hasMany) 1:n
+        organizationModels.Organization.hasMany(userModels.User, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
 
         // // 6. Organization has many engineers (hasMany) 1:n
         // organizationModels.Organization.hasMany(engineerModels.Engineer, {
@@ -60,7 +60,7 @@ function modelsAssociations(sequelize) {
 
         return {
             ...unitModel,
-            // ...userModels,
+            ...userModels,
             ...clientModels,
             ...aircraftModel,
             // ...engineerModels,

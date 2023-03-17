@@ -7,8 +7,8 @@ const getAllUsers = async (organizationId) => {
 
     try {
         const allUsers = await User().findAll({
-            where: { organizationId },
-            order: [["createdAt", "DESC"]],
+            where: { organization_id: organizationId },
+            order: [["created_at", "DESC"]],
             attributes: [
                 "id",
                 "first_name",
@@ -25,6 +25,7 @@ const getAllUsers = async (organizationId) => {
             include: [
                 {
                     model: UserAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

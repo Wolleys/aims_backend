@@ -8,11 +8,16 @@ function setupUserModels(sequelize) {
         const UserAvatar = createUserAvatar(sequelize);
 
         // *** User 1:1 association ***
-        // User has one avatar (belongsTo) 1:1
-        User.hasOne(UserAvatar, { onDelete: "CASCADE" });
-        UserAvatar.belongsTo(User);
+        User.hasOne(UserAvatar, {
+            onDelete: "CASCADE",
+            foreignKey: "user_id",
+            as: "avatar",
+        });
 
-        return { User, UserAvatar };
+        return {
+            User,
+            UserAvatar,
+        };
     } catch (error) {
         throw error;
     }
