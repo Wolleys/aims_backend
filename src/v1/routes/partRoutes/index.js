@@ -16,7 +16,7 @@ const { validateSchema } = require("../../../middlewares/validateSchema");
 
 //Import the required part schemas
 const { partSchema } = require("../../../schemas/partSchema");
-const { priceSchema } = require("../../../schemas/priceScema");
+const { priceSchema } = require("../../../schemas/priceSchema");
 const { quantitySchema } = require("../../../schemas/quantitySchema");
 
 // Validate all schemas before creating a new part
@@ -56,7 +56,7 @@ router.post(
 router.patch(
     "/:organizationId/:partId",
     requireParams(multipleParams),
-    validateSchema(partSchema),
+    validateAll(),
     updateOnePart
 );
 
