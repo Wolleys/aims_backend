@@ -4,11 +4,10 @@ const deleteOneSupplier = async (req, res) => {
     const supplierId = req.params.supplierId;
     const organizationId = req.params.organizationId;
     try {
-        const deletedSupplier = await supplierService.deleteOneSupplier(
-            organizationId,
-            supplierId
-        );
-        res.status(200).json({ status: "OK", data: deletedSupplier });
+        await supplierService.deleteOneSupplier(organizationId, supplierId);
+        res
+            .status(200)
+            .json({ status: "OK", message: "Record deleted successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)

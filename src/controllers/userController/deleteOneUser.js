@@ -4,8 +4,10 @@ const deleteOneUser = async (req, res) => {
     const userId = req.params.userId;
     const organizationId = req.params.organizationId;
     try {
-        const deletedUser = await userService.deleteOneUser(organizationId, userId);
-        res.status(200).json({ status: "OK", data: deletedUser });
+        await userService.deleteOneUser(organizationId, userId);
+        res
+            .status(200)
+            .json({ status: "OK", message: "Record deleted successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)
