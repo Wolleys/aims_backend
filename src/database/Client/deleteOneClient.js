@@ -1,21 +1,13 @@
 const { Client } = require("./clientModel");
+const { deleteItem } = require("../helpers/deleteItem");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const deleteOneClient = async (organizationId, clientId) => {
     await checkOrganization(organizationId);
 
     try {
-        const client = await Client().destroy({
-            where: { id: clientId, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!client) {
-            throw {
-                status: 400,
-                message: `Can't find a client with the id '${clientId}'`,
-            };
-        }
-        return client;
+        const itemToFind = "a client";
+        await deleteItem(Client, itemToFind, clientId, organizationId);
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

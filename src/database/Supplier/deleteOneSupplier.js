@@ -1,21 +1,13 @@
 const { Supplier } = require("./supplierModel");
+const { deleteItem } = require("../helpers/deleteItem");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const deleteOneSupplier = async (organizationId, supplierId) => {
     await checkOrganization(organizationId);
     
     try {
-        const supplier = await Supplier().destroy({
-            where: { id: supplierId, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!supplier) {
-            throw {
-                status: 400,
-                message: `Can't find a supplier with the id '${supplierId}'`,
-            };
-        }
-        return supplier;
+        const itemToFind = "a supplier";
+        await deleteItem(Supplier, itemToFind, supplierId, organizationId);
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

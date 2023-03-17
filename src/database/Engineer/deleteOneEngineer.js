@@ -1,21 +1,13 @@
 const { Engineer } = require("./engineerModel");
+const { deleteItem } = require("../helpers/deleteItem");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const deleteOneEngineer = async (organizationId, engineerId) => {
     await checkOrganization(organizationId);
 
     try {
-        const engineer = await Engineer().destroy({
-            where: { id: engineerId, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!engineer) {
-            throw {
-                status: 400,
-                message: `Can't find an engineer with the id '${engineerId}'`,
-            };
-        }
-        return engineer;
+        const itemToFind = "an engineer";
+        await deleteItem(Engineer, itemToFind, engineerId, organizationId);
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

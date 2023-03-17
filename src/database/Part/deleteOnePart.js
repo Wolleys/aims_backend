@@ -1,21 +1,13 @@
 const { Part } = require("./partModel");
+const { deleteItem } = require("../helpers/deleteItem");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
-const deleteOnePart = async(organizationId, partId) => {
+const deleteOnePart = async (organizationId, partId) => {
     await checkOrganization(organizationId);
 
     try {
-        const part = await Part().destroy({
-            where: { id: partId, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!part) {
-            throw {
-                status: 400,
-                message: `Can't find a part with the id '${partId}'`,
-            };
-        }
-        return part;
+        const itemToFind = "a part";
+        await deleteItem(Part, itemToFind, partId, organizationId);
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }
