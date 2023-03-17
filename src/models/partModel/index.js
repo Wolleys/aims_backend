@@ -50,6 +50,10 @@ function createNewPart(sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            expiry_date: {
+                type: DataTypes.DATE,
+                allowNull: false,
+            },
             created_by: {
                 type: DataTypes.STRING,
                 allowNull: false,
