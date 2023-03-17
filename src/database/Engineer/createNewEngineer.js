@@ -10,8 +10,11 @@ const createNewEngineer = async (organizationId, newEngineer) => {
         await checkOrganization(organizationId);
 
         const isIdNumber = await Engineer().findOne({
-            where: { id_number: newEngineer.id_number, organizationId },
-            attributes: ["id_number", "organizationId"],
+            where: {
+                id_number: newEngineer.id_number,
+                organization_id: organizationId,
+            },
+            attributes: ["id_number", "organization_id"],
         });
         if (isIdNumber) {
             throw {
@@ -21,8 +24,11 @@ const createNewEngineer = async (organizationId, newEngineer) => {
         }
 
         const isStaffNumber = await Engineer().findOne({
-            where: { staff_number: newEngineer.staff_number, organizationId },
-            attributes: ["staff_number", "organizationId"],
+            where: {
+                staff_number: newEngineer.staff_number,
+                organization_id: organizationId,
+            },
+            attributes: ["staff_number", "organization_id"],
         });
         if (isStaffNumber) {
             throw {
@@ -32,8 +38,8 @@ const createNewEngineer = async (organizationId, newEngineer) => {
         }
 
         const isEmail = await Engineer().findOne({
-            where: { email: newEngineer.email, organizationId },
-            attributes: ["email", "organizationId"],
+            where: { email: newEngineer.email, organization_id: organizationId },
+            attributes: ["email", "organization_id"],
         });
         if (isEmail) {
             throw {
@@ -47,7 +53,7 @@ const createNewEngineer = async (organizationId, newEngineer) => {
         });
 
         const avatar = {
-            engineerId: createdEngineer.id,
+            engineer_id: createdEngineer.id,
         };
 
         await EngineerAvatar().create(avatar, { transaction });

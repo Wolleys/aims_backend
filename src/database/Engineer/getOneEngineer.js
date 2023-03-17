@@ -7,7 +7,7 @@ const getOneEngineer = async (organizationId, engineerId) => {
 
     try {
         const engineer = await Engineer().findOne({
-            where: { id: engineerId, organizationId },
+            where: { id: engineerId, organization_id: organizationId },
             attributes: [
                 "id",
                 "first_name",
@@ -23,6 +23,7 @@ const getOneEngineer = async (organizationId, engineerId) => {
             include: [
                 {
                     model: EngineerAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

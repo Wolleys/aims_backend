@@ -8,11 +8,16 @@ function setupEngineerModels(sequelize) {
         const EngineerAvatar = createEngineerAvatar(sequelize);
 
         // *** Engineer 1:1 association ***
-        // Engineer has one avatar (belongsTo) 1:1
-        Engineer.hasOne(EngineerAvatar, { onDelete: "CASCADE" });
-        EngineerAvatar.belongsTo(Engineer);
+        Engineer.hasOne(EngineerAvatar, {
+            onDelete: "CASCADE",
+            foreignKey: "engineer_id",
+            as: "avatar",
+        });
 
-        return { Engineer, EngineerAvatar };
+        return {
+            Engineer,
+            EngineerAvatar,
+        };
     } catch (error) {
         throw error;
     }

@@ -6,8 +6,8 @@ const deleteOneEngineer = async (organizationId, engineerId) => {
 
     try {
         const engineer = await Engineer().destroy({
-            where: { id: engineerId, organizationId },
-            attributes: ["id", "organizationId"],
+            where: { id: engineerId, organization_id: organizationId },
+            attributes: ["id", "organization_id"],
         });
         if (!engineer) {
             throw {

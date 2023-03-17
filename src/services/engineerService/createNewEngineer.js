@@ -3,7 +3,7 @@ const Engineer = require("../../database/Engineer");
 const createNewEngineer = (organizationId, newEngineer) => {
     const engineerToInsert = {
         ...newEngineer,
-        organizationId,
+        organization_id: organizationId,
     };
 
     try {

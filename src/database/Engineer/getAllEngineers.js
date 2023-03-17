@@ -2,13 +2,13 @@ const { Engineer } = require("./engineerModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { EngineerAvatar } = require("../EngineerAvatar/engineerAvatarModel");
 
-const getAllEngineers = async(organizationId) => {
+const getAllEngineers = async (organizationId) => {
     await checkOrganization(organizationId);
 
     try {
         const allEngineers = await Engineer().findAll({
-            where: { organizationId },
-            order: [["createdAt", "DESC"]],
+            where: { organization_id: organizationId },
+            order: [["created_at", "DESC"]],
             attributes: [
                 "id",
                 "first_name",
@@ -24,6 +24,7 @@ const getAllEngineers = async(organizationId) => {
             include: [
                 {
                     model: EngineerAvatar(),
+                    as: "avatar",
                     attributes: ["id", "avatar"],
                 },
             ],

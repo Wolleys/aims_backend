@@ -5,8 +5,8 @@ const updateOneEngineer = async (organizationId, engineerId, changes) => {
     await checkOrganization(organizationId);
 
     const engineerExists = await Engineer().findOne({
-        where: { id: engineerId, organizationId },
-        attributes: ["id", "organizationId"],
+        where: { id: engineerId, organization_id: organizationId },
+        attributes: ["id", "organization_id"],
     });
     if (!engineerExists) {
         throw {
@@ -18,7 +18,7 @@ const updateOneEngineer = async (organizationId, engineerId, changes) => {
     try {
         const updateEngineer = await Engineer().update(
             { ...changes },
-            { where: { id: engineerId, organizationId } }
+            { where: { id: engineerId, organization_id: organizationId } }
         );
         if (!updateEngineer) {
             throw {
@@ -28,7 +28,7 @@ const updateOneEngineer = async (organizationId, engineerId, changes) => {
         }
 
         const returnUpdatedEngineer = await Engineer().findOne({
-            where: { id: engineerId, organizationId },
+            where: { id: engineerId, organization_id: organizationId },
             attributes: [
                 "id",
                 "first_name",
