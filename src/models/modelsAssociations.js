@@ -1,3 +1,4 @@
+const { setupPartModels } = require("./partModel/setupModels");
 const { setupUnitModels } = require("./unitModel/setupModels");
 const { setupUserModels } = require("./userModel/setupModels");
 const { setupClientModels } = require("./clientModel/setupModels");
@@ -10,6 +11,7 @@ function modelsAssociations(sequelize) {
     try {
         const unitModel = setupUnitModels(sequelize);
         const userModels = setupUserModels(sequelize);
+        const partModels = setupPartModels(sequelize);
         const clientModels = setupClientModels(sequelize);
         const aircraftModel = setupAircraftModels(sequelize);
         const engineerModels = setupEngineerModels(sequelize);
@@ -58,9 +60,22 @@ function modelsAssociations(sequelize) {
             foreignKey: "organization_id",
         });
 
+        // 8. Organization has many parts (hasMany) 1:n
+        organizationModels.Organization.hasMany(partModels.Part, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
+
+        // 9. Supplier has many parts (hasMany) 1:n
+        supplierModels.Supplier.hasMany(partModels.Part, {
+            onDelete: "CASCADE",
+            foreignKey: "supplier_id",
+        });
+
         return {
             ...unitModel,
             ...userModels,
+            ...partModels,
             ...clientModels,
             ...aircraftModel,
             ...engineerModels,

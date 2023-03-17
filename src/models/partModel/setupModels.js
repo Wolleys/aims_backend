@@ -10,12 +10,16 @@ function setupPartModels(sequelize) {
         const PartQuantity = createPartQuantity(sequelize);
 
         // *** Part 1:1 association ***
-        // Part has one price (belongsTo) 1:1
-        // Part has one quantity (belongsTo) 1:1
-        Part.hasOne(PartPrice, { onDelete: "CASCADE" });
-        Part.hasOne(PartQuantity, { onDelete: "CASCADE" });
-        PartPrice.belongsTo(Part);
-        PartQuantity.belongsTo(Part);
+        Part.hasOne(PartPrice, {
+            onDelete: "CASCADE",
+            foreignKey: "part_id",
+            as: "price",
+        });
+        Part.hasOne(PartQuantity, {
+            onDelete: "CASCADE",
+            foreignKey: "part_id",
+            as: "quantity",
+        });
 
         return {
             Part,
