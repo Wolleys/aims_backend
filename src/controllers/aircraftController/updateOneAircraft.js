@@ -5,12 +5,8 @@ const updateOneAircraft = async (req, res) => {
     const organizationId = req.params.organizationId;
     const aircraftId = req.params.aircraftId;
     try {
-        const updatedAircraft = await aircraftService.updateOneAircraft(
-            organizationId,
-            aircraftId,
-            body
-        );
-        res.send({ status: "OK", data: updatedAircraft });
+        await aircraftService.updateOneAircraft(organizationId, aircraftId, body);
+        res.send({ status: "OK", message: "Record updated successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)

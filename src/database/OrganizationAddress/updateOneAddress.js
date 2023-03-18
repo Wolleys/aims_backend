@@ -23,20 +23,6 @@ const updateOneAddress = async (organizationId, changes) => {
                 message: `Error while updating organization address with the id '${organizationId}'`,
             };
         }
-
-        const returnUpdatedAddress = await OrganizationAddress().findOne({
-            where: { organizationId },
-            attributes: [
-                "id",
-                "country",
-                "address_line_1",
-                "address_line_2",
-                "city",
-                "region",
-                "postal_code",
-            ],
-        });
-        return returnUpdatedAddress;
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

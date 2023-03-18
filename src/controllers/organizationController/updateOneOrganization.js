@@ -4,11 +4,8 @@ const updateOneOrganization = async (req, res) => {
     const body = req.body;
     const organizationId = req.params.organizationId;
     try {
-        const updatedOrganization = await organizationService.updateOneOrganization(
-            organizationId,
-            body
-        );
-        res.send({ status: "OK", data: updatedOrganization });
+        await organizationService.updateOneOrganization(organizationId, body);
+        res.send({ status: "OK", message: "Record updated successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)

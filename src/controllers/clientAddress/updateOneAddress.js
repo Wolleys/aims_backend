@@ -5,12 +5,8 @@ const updateOneAddress = async (req, res) => {
     const organizationId = req.params.organizationId;
     const clientId = req.params.clientId;
     try {
-        const updatedClient = await clientAddress.updateOneAddress(
-            organizationId,
-            clientId,
-            body
-        );
-        res.send({ status: "OK", data: updatedClient });
+        await clientAddress.updateOneAddress(organizationId, clientId, body);
+        res.send({ status: "OK", message: "Record updated successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)

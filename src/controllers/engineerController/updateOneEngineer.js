@@ -5,12 +5,8 @@ const updateOneEngineer = async (req, res) => {
     const organizationId = req.params.organizationId;
     const engineerId = req.params.engineerId;
     try {
-        const updatedEngineer = await engineerService.updateOneEngineer(
-            organizationId,
-            engineerId,
-            body
-        );
-        res.send({ status: "OK", data: updatedEngineer });
+        await engineerService.updateOneEngineer(organizationId, engineerId, body);
+        res.send({ status: "OK", message: "Record updated successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)

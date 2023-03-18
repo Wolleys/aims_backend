@@ -5,12 +5,8 @@ const updateOneSupplier = async (req, res) => {
     const organizationId = req.params.organizationId;
     const supplierId = req.params.supplierId;
     try {
-        const updatedSupplier = await supplierService.updateOneSupplier(
-            organizationId,
-            supplierId,
-            body
-        );
-        res.send({ status: "OK", data: updatedSupplier });
+        await supplierService.updateOneSupplier(organizationId, supplierId, body);
+        res.send({ status: "OK", message: "Record updated successfully." });
     } catch (error) {
         res
             .status(error?.status || 500)

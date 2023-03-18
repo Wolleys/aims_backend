@@ -26,20 +26,6 @@ const updateOneAddress = async (organizationId, supplierId, changes) => {
                 message: `Error while updating supplier address with the id '${supplierId}'`,
             };
         }
-
-        const returnUpdatedAddress = await SupplierAddress().findOne({
-            where: { supplier_id: supplierId },
-            attributes: [
-                "id",
-                "country",
-                "address_line_1",
-                "address_line_2",
-                "city",
-                "region",
-                "postal_code",
-            ],
-        });
-        return returnUpdatedAddress;
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }
