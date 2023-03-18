@@ -1,5 +1,6 @@
 const { Client } = require("./clientModel");
 const { sequelize } = require("../dbConfig");
+const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { ClientAvatar } = require("../ClientAvatar/clientAvatarModel");
 const { ClientAddress } = require("../ClientAddress/clientAddressModel");
@@ -10,28 +11,18 @@ const createNewClient = async (newClient, organizationId) => {
         transaction = await sequelize.transaction();
         await checkOrganization(organizationId);
 
-        const isAlreadyAdded = await Client().findOne({
-            where: { email: newClient.email },
-            attributes: ["email"],
-        });
-        if (isAlreadyAdded) {
-            throw {
-                status: 400,
-                message: `'${newClient.email}' is already in use!`,
-            };
-        }
+        // Check if email already exists
+        const emailCol = "email";
+        const emailVal = newSupplier.email;
+        const emailAttrs = ["email", "organization_id"];
+        await isAlreadyAdded(Client, emailCol, emailVal, organizationId, emailAttrs);
 
         const createdClient = await Client().create(newClient, {
             transaction,
         });
 
         const address = {
-            country: newClient.country,
-            address_line_1: newClient.address_line_1,
-            address_line_2: newClient.address_line_2,
-            city: newClient.city,
-            region: newClient.region,
-            postal_code: newClient.postal_code,
+            ...newClient,
             client_id: createdClient.id,
         };
 

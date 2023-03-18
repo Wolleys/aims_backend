@@ -1,19 +1,15 @@
 const { Unit } = require("./unitModel");
+const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const createNewUnit = async (organizationId, newUnit) => {
     await checkOrganization(organizationId);
 
-    const isAlreadyAdded = await Unit().findOne({
-        where: { unit_name: newUnit.unit_name, organization_id: organizationId },
-        attributes: ["unit_name", "organization_id"],
-    });
-    if (isAlreadyAdded) {
-        throw {
-            status: 400,
-            message: `'${newUnit.unit_name}' has already been added!`,
-        };
-    }
+    // Check if unit name already exists
+    const unitNameCol = "unit_name";
+    const unitNameVal = newUnit.unit_name;
+    const unitNameAttrs = ["unit_name", "organization_id"];
+    await isAlreadyAdded(Unit, unitNameCol, unitNameVal, organizationId, unitNameAttrs);
 
     try {
         const createdUnit = await Unit().create(newUnit);

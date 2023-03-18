@@ -1,5 +1,6 @@
 const { Aircraft } = require("./aircraftModel");
 const { Client } = require("../Client/clientModel");
+const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const createNewAircraft = async (organizationId, newAircraft) => {
@@ -16,19 +17,11 @@ const createNewAircraft = async (organizationId, newAircraft) => {
         };
     }
 
-    const isAlreadyAdded = await Aircraft().findOne({
-        where: {
-            aircraft_reg: newAircraft.aircraft_reg,
-            organization_id: organizationId,
-        },
-        attributes: ["aircraft_reg", "organization_id"],
-    });
-    if (isAlreadyAdded) {
-        throw {
-            status: 400,
-            message: `'${newAircraft.aircraft_reg}' has already been added!`,
-        };
-    }
+    // Check if A/c reg num already exists
+    const airRegCol = "aircraft_reg";
+    const airRegVal = newAircraft.aircraft_reg;
+    const airRegAttrs = ["aircraft_reg", "organization_id"];
+    await isAlreadyAdded(Aircraft, airRegCol, airRegVal, organizationId, airRegAttrs);
 
     try {
         const createdAircraft = await Aircraft().create(newAircraft);

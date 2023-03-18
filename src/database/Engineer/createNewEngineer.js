@@ -1,5 +1,6 @@
 const { sequelize } = require("../dbConfig");
 const { Engineer } = require("./engineerModel");
+const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { EngineerAvatar } = require("../EngineerAvatar/engineerAvatarModel");
 
@@ -9,44 +10,23 @@ const createNewEngineer = async (organizationId, newEngineer) => {
         transaction = await sequelize.transaction();
         await checkOrganization(organizationId);
 
-        const isIdNumber = await Engineer().findOne({
-            where: {
-                id_number: newEngineer.id_number,
-                organization_id: organizationId,
-            },
-            attributes: ["id_number", "organization_id"],
-        });
-        if (isIdNumber) {
-            throw {
-                status: 400,
-                message: `'${newEngineer.id_number}' has already been added!`,
-            };
-        }
+        // Check if id number already exists
+        const idNumCol = "id_number";
+        const idNumVal = newEngineer.id_number;
+        const idNumAttrs = ["id_number", "organization_id"];
+        await isAlreadyAdded(Engineer, idNumCol, idNumVal, organizationId, idNumAttrs);
 
-        const isStaffNumber = await Engineer().findOne({
-            where: {
-                staff_number: newEngineer.staff_number,
-                organization_id: organizationId,
-            },
-            attributes: ["staff_number", "organization_id"],
-        });
-        if (isStaffNumber) {
-            throw {
-                status: 400,
-                message: `'${newEngineer.staff_number}' has already been added!`,
-            };
-        }
-
-        const isEmail = await Engineer().findOne({
-            where: { email: newEngineer.email, organization_id: organizationId },
-            attributes: ["email", "organization_id"],
-        });
-        if (isEmail) {
-            throw {
-                status: 400,
-                message: `'${newEngineer.email}' has already been added!`,
-            };
-        }
+        // Check if staff number already exists
+        const staffNumCol = "staff_number";
+        const staffNumVal = newEngineer.staff_number;
+        const staffNumAttrs = ["staff_number", "organization_id"];
+        await isAlreadyAdded(Engineer, staffNumCol, staffNumVal, organizationId, staffNumAttrs);
+    
+        // Check if email already exists
+        const emailCol = "email";
+        const emailVal = newEngineer.email;
+        const emailAttrs = ["email", "organization_id"];
+        await isAlreadyAdded(Engineer, emailCol, emailVal, organizationId, emailAttrs);
 
         const createdEngineer = await Engineer().create(newEngineer, {
             transaction,

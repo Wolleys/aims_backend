@@ -1,5 +1,6 @@
 const { sequelize } = require("../dbConfig");
 const { Supplier } = require("./supplierModel");
+const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { SupplierAvatar } = require("../SupplierAvatar/supplierAvatarModel");
 const { SupplierAddress } = require("../SupplierAddress/supplierAddressModel");
@@ -10,28 +11,18 @@ const createNewSupplier = async (newSupplier, organizationId) => {
         transaction = await sequelize.transaction();
         await checkOrganization(organizationId);
 
-        const isAlreadyAdded = await Supplier().findOne({
-            where: { email: newSupplier.email },
-            attributes: ["email"],
-        });
-        if (isAlreadyAdded) {
-            throw {
-                status: 400,
-                message: `'${newSupplier.email}' is already in use!`,
-            };
-        }
+        // Check if email already exists
+        const emailCol = "email";
+        const emailVal = newSupplier.email;
+        const emailAttrs = ["email", "organization_id"];
+        await isAlreadyAdded(Supplier, emailCol, emailVal, organizationId, emailAttrs);
 
         const createdSupplier = await Supplier().create(newSupplier, {
             transaction,
         });
 
         const address = {
-            country: newSupplier.country,
-            address_line_1: newSupplier.address_line_1,
-            address_line_2: newSupplier.address_line_2,
-            city: newSupplier.city,
-            region: newSupplier.region,
-            postal_code: newSupplier.postal_code,
+            ...newSupplier,
             supplier_id: createdSupplier.id,
         };
 

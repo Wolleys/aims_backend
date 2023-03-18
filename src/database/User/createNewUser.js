@@ -1,5 +1,6 @@
 const { User } = require("./userModel");
 const { sequelize } = require("../dbConfig");
+const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { UserAvatar } = require("../UserAvatar/userAvatarModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
@@ -9,41 +10,23 @@ const createNewUser = async (organizationId, newUser) => {
         transaction = await sequelize.transaction();
         await checkOrganization(organizationId);
 
-        const isIdNumber = await User().findOne({
-            where: { id_number: newUser.id_number, organization_id: organizationId },
-            attributes: ["id_number", "organization_id"],
-        });
-        if (isIdNumber) {
-            throw {
-                status: 400,
-                message: `'${newUser.id_number}' has already been added!`,
-            };
-        }
+        // Check if id number already exists
+        const idNumCol = "id_number";
+        const idNumVal = newUser.id_number;
+        const idNumAttrs = ["id_number", "organization_id"];
+        await isAlreadyAdded(User, idNumCol, idNumVal, organizationId, idNumAttrs);
 
-        const isStaffNumber = await User().findOne({
-            where: {
-                staff_number: newUser.staff_number,
-                organization_id: organizationId,
-            },
-            attributes: ["staff_number", "organization_id"],
-        });
-        if (isStaffNumber) {
-            throw {
-                status: 400,
-                message: `'${newUser.staff_number}' has already been added!`,
-            };
-        }
+        // Check if staff number already exists
+        const staffNumCol = "staff_number";
+        const staffNumVal = newUser.staff_number;
+        const staffNumAttrs = ["staff_number", "organization_id"];
+        await isAlreadyAdded(User, staffNumCol, staffNumVal, organizationId, staffNumAttrs);
 
-        const isEmail = await User().findOne({
-            where: { email: newUser.email, organization_id: organizationId },
-            attributes: ["email", "organization_id"],
-        });
-        if (isEmail) {
-            throw {
-                status: 400,
-                message: `'${newUser.email}' has already been added!`,
-            };
-        }
+        // Check if email already exists
+        const emailCol = "email";
+        const emailVal = newUser.email;
+        const emailAttrs = ["email", "organization_id"];
+        await isAlreadyAdded(User, emailCol, emailVal, organizationId, emailAttrs);
 
         const createdUser = await User().create(newUser, {
             transaction,

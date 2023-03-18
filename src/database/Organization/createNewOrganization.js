@@ -24,12 +24,7 @@ const createNewOrganization = async (newOrganization) => {
         });
 
         const address = {
-            country: newOrganization.country,
-            address_line_1: newOrganization.address_line_1,
-            address_line_2: newOrganization.address_line_2,
-            city: newOrganization.city,
-            region: newOrganization.region,
-            postal_code: newOrganization.postal_code,
+            ...newOrganization,
             organization_id: createdOrganization.id,
         };
 
