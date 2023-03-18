@@ -37,7 +37,6 @@ function createNewSupplier(sequelize) {
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true,
             },
         },
         {
