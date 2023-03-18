@@ -1,6 +1,7 @@
 const { Part } = require("./partModel");
 const { sequelize } = require("../dbConfig");
 const { Unit } = require("../Unit/unitModel");
+const { findItem } = require("../helpers/findItem");
 const { Supplier } = require("../Supplier/supplierModel");
 const { PartPrice } = require("../PartPrice/partPriceModel");
 const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
@@ -13,33 +14,23 @@ const createNewPart = async (organizationId, newPart) => {
         transaction = await sequelize.transaction();
         await checkOrganization(organizationId);
 
-        const supplierExist = await Supplier().findOne({
-            where: { id: newPart.supplier_id, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!supplierExist) {
-            throw {
-                status: 400,
-                message: `Can't find a supplier with the id '${newPart.supplier_id}'`,
-            };
-        }
+        const findSupplier = "a supplier";
+        await findItem(Supplier, findSupplier, newPart.supplier_id, organizationId);
 
-        const unitExist = await Unit().findOne({
-            where: { id: newPart.unit_id, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!unitExist) {
-            throw {
-                status: 400,
-                message: `Can't find a unit with the id '${newPart.unit_id}'`,
-            };
-        }
+        const findUnit = "a unit";
+        await findItem(Unit, findUnit, newPart.unit_id, organizationId);
 
         // Check if part number already exists
         const partNumCol = "part_number";
         const partNumVal = newPart.part_number;
         const partNumAttrs = ["part_number", "organization_id"];
-        await isAlreadyAdded(Part, partNumCol, partNumVal, organizationId, partNumAttrs);
+        await isAlreadyAdded(
+            Part,
+            partNumCol,
+            partNumVal,
+            organizationId,
+            partNumAttrs
+        );
 
         const createdPart = await Part().create(newPart, {
             transaction,

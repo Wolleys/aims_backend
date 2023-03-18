@@ -26,20 +26,6 @@ const updateOneAddress = async (organizationId, clientId, changes) => {
                 message: `Error while updating client address with the id '${clientId}'`,
             };
         }
-
-        const returnUpdatedAddress = await ClientAddress().findOne({
-            where: { client_id: clientId },
-            attributes: [
-                "id",
-                "country",
-                "address_line_1",
-                "address_line_2",
-                "city",
-                "region",
-                "postal_code",
-            ],
-        });
-        return returnUpdatedAddress;
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

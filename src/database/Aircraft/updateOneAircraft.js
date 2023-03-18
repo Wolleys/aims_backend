@@ -1,31 +1,16 @@
 const { Aircraft } = require("./aircraftModel");
 const { Client } = require("../Client/clientModel");
+const { findItem } = require("../helpers/findItem");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const updateOneAircraft = async (organizationId, aircraftId, changes) => {
     await checkOrganization(organizationId);
 
-    const aircraftExists = await Aircraft().findOne({
-        where: { id: aircraftId, organization_id: organizationId },
-        attributes: ["id", "organization_id"],
-    });
-    if (!aircraftExists) {
-        throw {
-            status: 400,
-            message: `Can't find an aircraft with the id '${aircraftId}'`,
-        };
-    }
+    const findAircraft = "an aircraft";
+    await findItem(Aircraft, findAircraft, aircraftId, organizationId);
 
-    const clientExists = await Client().findOne({
-        where: { id: changes.client_id, organization_id: organizationId },
-        attributes: ["id", "organization_id"],
-    });
-    if (!clientExists) {
-        throw {
-            status: 400,
-            message: `Can't find a client with the id '${changes.client_id}'`,
-        };
-    }
+    const findClient = "a client";
+    await findItem(Client, findClient, changes.client_id, organizationId);
 
     try {
         const updateAircraft = await Aircraft().update(
@@ -38,12 +23,6 @@ const updateOneAircraft = async (organizationId, aircraftId, changes) => {
                 message: `Error while updating an aircraft with the id '${aircraftId}'`,
             };
         }
-
-        const returnUpdatedAircraft = await Aircraft().findOne({
-            where: { id: aircraftId, organization_id: organizationId },
-            attributes: ["id", "aircraft_reg", "aircraft_type", "client_id"],
-        });
-        return returnUpdatedAircraft;
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

@@ -1,19 +1,12 @@
 const { Supplier } = require("./supplierModel");
+const { findItem } = require("../helpers/findItem");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const updateOneSupplier = async (organizationId, supplierId, changes) => {
     await checkOrganization(organizationId);
 
-    const supplierExists = await Supplier().findOne({
-        where: { id: supplierId, organization_id: organizationId },
-        attributes: ["id", "organization_id"],
-    });
-    if (!supplierExists) {
-        throw {
-            status: 400,
-            message: `Can't find a supplier with the id '${supplierId}'`,
-        };
-    }
+    const findSupplier = "a supplier";
+    await findItem(Supplier, findSupplier, supplierId, organizationId);
 
     try {
         const updateSupplier = await Supplier().update(
@@ -26,21 +19,6 @@ const updateOneSupplier = async (organizationId, supplierId, changes) => {
                 message: `Error while updating supplier with the id '${supplierId}'`,
             };
         }
-
-        const returnUpdatedSupplier = await Supplier().findOne({
-            where: { id: supplierId, organization_id: organizationId },
-            attributes: [
-                "id",
-                "first_name",
-                "last_name",
-                "company_name",
-                "job_title",
-                "phone_number",
-                "website",
-                "email",
-            ],
-        });
-        return returnUpdatedSupplier;
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

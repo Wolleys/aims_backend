@@ -1,21 +1,14 @@
 const { Aircraft } = require("./aircraftModel");
 const { Client } = require("../Client/clientModel");
+const { findItem } = require("../helpers/findItem");
 const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
 const createNewAircraft = async (organizationId, newAircraft) => {
     await checkOrganization(organizationId);
 
-    const clientExists = await Client().findOne({
-        where: { id: newAircraft.client_id, organization_id: organizationId },
-        attributes: ["id", "organization_id"],
-    });
-    if (!clientExists) {
-        throw {
-            status: 400,
-            message: `Can't find a client with the id '${newAircraft.client_id}'`,
-        };
-    }
+    const findClient = "a client";
+    await findItem(Client, findClient, newAircraft.client_id, organizationId);
 
     // Check if A/c reg num already exists
     const airRegCol = "aircraft_reg";

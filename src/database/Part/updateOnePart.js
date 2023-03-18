@@ -1,5 +1,6 @@
 const { Part } = require("./partModel");
 const { sequelize } = require("../dbConfig");
+const { findItem } = require("../helpers/findItem");
 const { PartPrice } = require("../PartPrice/partPriceModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { PartQuantity } = require("../PartQuantity/partQuantityModel");
@@ -10,16 +11,8 @@ const updateOnePart = async (organizationId, partId, changes) => {
         transaction = await sequelize.transaction();
         await checkOrganization(organizationId);
 
-        const partExist = await Part().findOne({
-            where: { id: partId, organization_id: organizationId },
-            attributes: ["id", "organization_id"],
-        });
-        if (!partExist) {
-            throw {
-                status: 400,
-                message: `Can't find a part with the id '${partId}'`,
-            };
-        }
+        const findPart = "a part";
+        await findItem(Part, findPart, partId, organizationId);
 
         const updatePart = await Part().update(
             { ...changes },
