@@ -1,8 +1,8 @@
 const Part = require("../../database/Part");
 
-const getAllParts = (organizationId) => {
+const getAllParts = (organizationId, filterParams) => {
     try {
-        const allParts = Part.getAllParts(organizationId);
+        const allParts = Part.getAllParts(organizationId, filterParams);
         return allParts;
     } catch (error) {
         throw error;

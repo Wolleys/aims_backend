@@ -1,14 +1,26 @@
+const { Op } = require("sequelize");
 const { Part } = require("./partModel");
 const { PartPrice } = require("../PartPrice/partPriceModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { PartQuantity } = require("../PartQuantity/partQuantityModel");
 
-const getAllParts = async (organizationId) => {
+const getAllParts = async (organizationId, filterParams) => {
     await checkOrganization(organizationId);
+    
+    var condition = filterParams
+        ? {
+            [Op.or]: {
+                description: { [Op.like]: `%${filterParams}%` },
+                part_number: { [Op.like]: `%${filterParams}%` },
+                serial_number: { [Op.like]: `%${filterParams}%` },
+                location: { [Op.like]: `%${filterParams}%` },
+            },
+        }
+        : null;
 
     try {
-        const allParts = await Part().findAll({
-            where: { organization_id: organizationId },
+        const allParts = await Part().findAndCountAll({
+            where: { organization_id: organizationId, ...condition },
             order: [["created_at", "DESC"]],
             attributes: [
                 "id",

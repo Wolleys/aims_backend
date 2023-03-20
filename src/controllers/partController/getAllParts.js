@@ -1,9 +1,10 @@
 const partService = require("../../services/partService");
 
 const getAllParts = async (req, res) => {
+    const q = req.query.q;
     const organizationId = req.params.organizationId;
     try {
-        const allParts = await partService.getAllParts(organizationId);
+        const allParts = await partService.getAllParts(organizationId, q);
         res.send({ status: "OK", data: allParts });
     } catch (error) {
         res
