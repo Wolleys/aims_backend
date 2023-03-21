@@ -1,25 +1,31 @@
 const { Op } = require("sequelize");
 const { Part } = require("./partModel");
 const { PartPrice } = require("../PartPrice/partPriceModel");
+const { getPagination } = require("../helpers/getPagination");
+const { getPagingData } = require("../helpers/getPagingData");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const { PartQuantity } = require("../PartQuantity/partQuantityModel");
 
-const getAllParts = async (organizationId, filterParams) => {
+const getAllParts = async (organizationId, page, size, q) => {
     await checkOrganization(organizationId);
-    
-    var condition = filterParams
+
+    var condition = q
         ? {
             [Op.or]: {
-                description: { [Op.like]: `%${filterParams}%` },
-                part_number: { [Op.like]: `%${filterParams}%` },
-                serial_number: { [Op.like]: `%${filterParams}%` },
-                location: { [Op.like]: `%${filterParams}%` },
+                description: { [Op.like]: `%${q}%` },
+                part_number: { [Op.like]: `%${q}%` },
+                serial_number: { [Op.like]: `%${q}%` },
+                location: { [Op.like]: `%${q}%` },
             },
         }
         : null;
 
+    const { limit, offset } = getPagination(page, size);
+
     try {
         const allParts = await Part().findAndCountAll({
+            limit,
+            offset,
             where: { organization_id: organizationId, ...condition },
             order: [["created_at", "DESC"]],
             attributes: [
@@ -55,7 +61,8 @@ const getAllParts = async (organizationId, filterParams) => {
                 },
             ],
         });
-        return allParts;
+
+        return getPagingData(allParts, page, limit);
     } catch (error) {
         throw { status: 500, message: error };
     }
