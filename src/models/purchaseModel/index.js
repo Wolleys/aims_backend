@@ -14,10 +14,6 @@ function createNewPurchase(sequelize) {
                 type: DataTypes.DATE,
                 allowNull: false,
             },
-            part_id: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
             quantity_received: {
                 type: DataTypes.INTEGER,
                 allowNull: false,

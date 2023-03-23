@@ -7,6 +7,9 @@ const { setupAircraftModels } = require("./aircraftModel/setupModels");
 const { setupPurchaseModels } = require("./purchaseModel/setupModels");
 const { setupSupplierModels } = require("./supplierModel/setupModels");
 const { setupOrganizationModels } = require("./organizationModel/setupModels");
+const {
+    setupPurchaseHistoryModels,
+} = require("./purchaseHistoryModel/setupModels");
 
 function modelsAssociations(sequelize) {
     try {
@@ -19,6 +22,7 @@ function modelsAssociations(sequelize) {
         const engineerModels = setupEngineerModels(sequelize);
         const supplierModels = setupSupplierModels(sequelize);
         const organizationModels = setupOrganizationModels(sequelize);
+        const purchaseHistoryModel = setupPurchaseHistoryModels(sequelize);
 
         // 1. Organization has many Suppliers (hasMany) 1:n
         organizationModels.Organization.hasMany(supplierModels.Supplier, {
@@ -86,6 +90,33 @@ function modelsAssociations(sequelize) {
             foreignKey: "organization_id",
         });
 
+        // 12. Part has many purchases (hasMany) 1:n
+        partModels.Part.hasMany(purchaseModel.Purchase, {
+            onDelete: "CASCADE",
+            foreignKey: "part_id",
+        });
+
+        // 13. Organization has many purchase history (hasMany) 1:n
+        organizationModels.Organization.hasMany(
+            purchaseHistoryModel.PurchaseHistory,
+            {
+                onDelete: "CASCADE",
+                foreignKey: "organization_id",
+            }
+        );
+
+        // 14. Part has many purchase history (hasMany) 1:n
+        partModels.Part.hasMany(purchaseHistoryModel.PurchaseHistory, {
+            onDelete: "CASCADE",
+            foreignKey: "part_id",
+        });
+
+        // 15. Purchase has many purchase history (hasMany) 1:n
+        purchaseModel.Purchase.hasMany(purchaseHistoryModel.PurchaseHistory, {
+            onDelete: "CASCADE",
+            foreignKey: "purchase_id",
+        });
+
         return {
             ...unitModel,
             ...userModels,
@@ -96,6 +127,7 @@ function modelsAssociations(sequelize) {
             ...engineerModels,
             ...supplierModels,
             ...organizationModels,
+            ...purchaseHistoryModel,
         };
     } catch (err) {
         throw err;
