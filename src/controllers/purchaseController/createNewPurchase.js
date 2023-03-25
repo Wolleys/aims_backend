@@ -1,4 +1,4 @@
-const partPurchase = require("../../services/purchaseService");
+const purchaseService = require("../../services/purchaseService");
 
 const createNewPurchase = async (req, res) => {
     const body = req.body;
@@ -6,7 +6,7 @@ const createNewPurchase = async (req, res) => {
     const organizationId = req.params.organizationId;
 
     try {
-        const createdPurchase = await partPurchase.createNewPurchase(
+        const createdPurchase = await purchaseService.createNewPurchase(
             organizationId,
             partId,
             body
