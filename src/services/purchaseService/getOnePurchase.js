@@ -1,7 +1,12 @@
 const Purchase = require("../../database/Purchase");
 
 const getOnePurchase = (organizationId, purchaseId) => {
-    return;
+    try {
+        const purchase = Purchase.getOnePurchase(organizationId, purchaseId);
+        return purchase;
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = { getOnePurchase };

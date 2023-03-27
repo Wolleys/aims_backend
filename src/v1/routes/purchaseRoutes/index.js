@@ -20,13 +20,18 @@ const { purchaseSchema } = require("../../../schemas/purchaseSchema");
 //Required parameters for this route
 const singleParam = ["organizationId"];
 const createParams = ["organizationId", "partId"];
+const multipleParams = ["organizationId", "purchaseId"];
 
 //Purchase routes
 // 1. Get all purchases from a specific organization
 router.get("/:organizationId", requireParams(singleParam), getAllPurchases);
 
 // 2. Get one purchase from a specific organization by id
-router.get("/:organizationId/:purchaseId", getOnePurchase);
+router.get(
+    "/:organizationId/:purchaseId",
+    requireParams(multipleParams),
+    getOnePurchase
+);
 
 // 3. Create a new purchase to a specific organization's part
 router.post(
