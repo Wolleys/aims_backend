@@ -42,7 +42,12 @@ router.post(
 );
 
 // 4. Update one purchase from a specific organization by id
-router.patch("/:organizationId/:purchaseId", updateOnePurchase);
+router.patch(
+    "/:organizationId/:purchaseId",
+    requireParams(multipleParams),
+    validateSchema(purchaseSchema),
+    updateOnePurchase
+);
 
 // 5. Delete one purchase from a specific organization by id
 router.delete("/:organizationId/:purchaseId", deleteOnePurchase);
