@@ -34,6 +34,11 @@ const deleteOnePurchase = async (organizationId, purchaseId) => {
             transaction,
         });
 
+        await PurchaseHistory().destroy({
+            where: { purchase_id: purchaseId },
+            transaction,
+        });
+
         await transaction.commit();
     } catch (error) {
         if (transaction) {

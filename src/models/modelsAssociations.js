@@ -96,22 +96,13 @@ function modelsAssociations(sequelize) {
             foreignKey: "part_id",
         });
 
-        // 13. Organization has many purchase history (hasMany) 1:n
-        organizationModels.Organization.hasMany(
-            purchaseHistoryModel.PurchaseHistory,
-            {
-                onDelete: "CASCADE",
-                foreignKey: "organization_id",
-            }
-        );
-
-        // 14. Part has many purchase history (hasMany) 1:n
+        // 13. Part has many purchase history (hasMany) 1:n
         partModels.Part.hasMany(purchaseHistoryModel.PurchaseHistory, {
             onDelete: "CASCADE",
             foreignKey: "part_id",
         });
 
-        // 15. Purchase has many purchase history (hasMany) 1:n
+        // 14. Purchase has many purchase history (hasMany) 1:n
         purchaseModel.Purchase.hasMany(purchaseHistoryModel.PurchaseHistory, {
             onDelete: "CASCADE",
             foreignKey: "purchase_id",
