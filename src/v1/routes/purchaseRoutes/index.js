@@ -50,6 +50,10 @@ router.patch(
 );
 
 // 5. Delete one purchase from a specific organization by id
-router.delete("/:organizationId/:purchaseId", deleteOnePurchase);
+router.delete(
+    "/:organizationId/:purchaseId",
+    requireParams(multipleParams),
+    deleteOnePurchase
+);
 
 module.exports = router;
