@@ -10,6 +10,17 @@ const {
     deleteOneJob,
 } = require("../../../controllers/jobController");
 
+//Import middlewares
+const { requireParams } = require("../../../middlewares/checkParams");
+const { validateSchema } = require("../../../middlewares/validateSchema");
+
+//Import the required job schemas
+const { jobSchema } = require("../../../schemas/jobSchema");
+
+//Required parameters for this route
+const singleParam = ["organizationId"];
+const multipleParams = ["organizationId", "jobId"];
+
 //Job routes
 // 1. Get all jobs from a specific organization
 router.get("/:organizationId", getAllJobs);
@@ -18,7 +29,12 @@ router.get("/:organizationId", getAllJobs);
 router.get("/:organizationId/:jobId", getOneJob);
 
 // 3. Create a new job to a specific organization
-router.post("/:organizationId", createNewJob);
+router.post(
+    "/:organizationId",
+    requireParams(singleParam),
+    validateSchema(jobSchema),
+    createNewJob
+);
 
 // 4. Update one job from a specific organization by id
 router.patch("/:organizationId/:jobId", updateOneJob);

@@ -1,3 +1,4 @@
+const { setupJobModels } = require("./jobModel/setupModels");
 const { setupPartModels } = require("./partModel/setupModels");
 const { setupUnitModels } = require("./unitModel/setupModels");
 const { setupUserModels } = require("./userModel/setupModels");
@@ -13,6 +14,7 @@ const {
 
 function modelsAssociations(sequelize) {
     try {
+        const jobModel = setupJobModels(sequelize);
         const unitModel = setupUnitModels(sequelize);
         const userModels = setupUserModels(sequelize);
         const partModels = setupPartModels(sequelize);
@@ -106,6 +108,18 @@ function modelsAssociations(sequelize) {
         purchaseModel.Purchase.hasMany(purchaseHistoryModel.PurchaseHistory, {
             onDelete: "CASCADE",
             foreignKey: "purchase_id",
+        });
+
+        // 15. Organization has many jobs (hasMany) 1:n
+        organizationModels.Organization.hasMany(jobModel.Job, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
+
+        // 16. Aircraft has many jobs (hasMany) 1:n
+        aircraftModel.Aircraft.hasMany(jobModel.Job, {
+            onDelete: "CASCADE",
+            foreignKey: "aircraft_id",
         });
 
         return {
