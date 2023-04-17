@@ -26,7 +26,7 @@ const multipleParams = ["organizationId", "jobId"];
 router.get("/:organizationId", requireParams(singleParam), getAllJobs);
 
 // 2. Get one job from a specific organization by id
-router.get("/:organizationId/:jobId", getOneJob);
+router.get("/:organizationId/:jobId", requireParams(multipleParams), getOneJob);
 
 // 3. Create a new job to a specific organization
 router.post(
