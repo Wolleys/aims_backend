@@ -43,6 +43,9 @@ function modelsAssociations(sequelize) {
             onDelete: "CASCADE",
             foreignKey: "client_id",
         });
+        aircraftModel.Aircraft.belongsTo(clientModels.Client, {
+            foreignKey: "client_id",
+        });
 
         // 4. Organization has many aircrafts (hasMany) 1:n
         organizationModels.Organization.hasMany(aircraftModel.Aircraft, {
@@ -119,6 +122,9 @@ function modelsAssociations(sequelize) {
         // 16. Aircraft has many jobs (hasMany) 1:n
         aircraftModel.Aircraft.hasMany(jobModel.Job, {
             onDelete: "CASCADE",
+            foreignKey: "aircraft_id",
+        });
+        jobModel.Job.belongsTo(aircraftModel.Aircraft, {
             foreignKey: "aircraft_id",
         });
 

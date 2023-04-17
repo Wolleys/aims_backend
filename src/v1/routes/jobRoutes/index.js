@@ -23,7 +23,7 @@ const multipleParams = ["organizationId", "jobId"];
 
 //Job routes
 // 1. Get all jobs from a specific organization
-router.get("/:organizationId", getAllJobs);
+router.get("/:organizationId", requireParams(singleParam), getAllJobs);
 
 // 2. Get one job from a specific organization by id
 router.get("/:organizationId/:jobId", getOneJob);
