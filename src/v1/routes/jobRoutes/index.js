@@ -45,6 +45,10 @@ router.patch(
 );
 
 // 5. Delete one job from a specific organization by id
-router.delete("/:organizationId/:jobId", deleteOneJob);
+router.delete(
+    "/:organizationId/:jobId",
+    requireParams(multipleParams),
+    deleteOneJob
+);
 
 module.exports = router;
