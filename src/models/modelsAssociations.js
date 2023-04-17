@@ -123,6 +123,7 @@ function modelsAssociations(sequelize) {
         });
 
         return {
+            ...jobModel,
             ...unitModel,
             ...userModels,
             ...partModels,
