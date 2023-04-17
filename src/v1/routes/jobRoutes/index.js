@@ -37,7 +37,12 @@ router.post(
 );
 
 // 4. Update one job from a specific organization by id
-router.patch("/:organizationId/:jobId", updateOneJob);
+router.patch(
+    "/:organizationId/:jobId",
+    requireParams(multipleParams),
+    validateSchema(jobSchema),
+    updateOneJob
+);
 
 // 5. Delete one job from a specific organization by id
 router.delete("/:organizationId/:jobId", deleteOneJob);
