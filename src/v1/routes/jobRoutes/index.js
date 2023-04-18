@@ -5,6 +5,7 @@ const router = express.Router();
 const {
     getOneJob,
     getAllJobs,
+    closeOneJob,
     createNewJob,
     updateOneJob,
     deleteOneJob,
@@ -37,7 +38,7 @@ router.post(
 );
 
 // 4. Update one job from a specific organization by id
-router.patch(
+router.put(
     "/:organizationId/:jobId",
     requireParams(multipleParams),
     validateSchema(jobSchema),
@@ -49,6 +50,13 @@ router.delete(
     "/:organizationId/:jobId",
     requireParams(multipleParams),
     deleteOneJob
+);
+
+// 6. Close one job from a specific organization by id
+router.patch(
+    "/:organizationId/:jobId",
+    requireParams(multipleParams),
+    closeOneJob
 );
 
 module.exports = router;
