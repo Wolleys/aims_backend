@@ -7,6 +7,7 @@ const { setupEngineerModels } = require("./engineerModel/setupModels");
 const { setupAircraftModels } = require("./aircraftModel/setupModels");
 const { setupPurchaseModels } = require("./purchaseModel/setupModels");
 const { setupSupplierModels } = require("./supplierModel/setupModels");
+const { setupIssuedPartModels } = require("./issuedPartModel/setupModels");
 const { setupOrganizationModels } = require("./organizationModel/setupModels");
 const {
     setupPurchaseHistoryModels,
@@ -23,6 +24,7 @@ function modelsAssociations(sequelize) {
         const purchaseModel = setupPurchaseModels(sequelize);
         const engineerModels = setupEngineerModels(sequelize);
         const supplierModels = setupSupplierModels(sequelize);
+        const issuedPartModel = setupIssuedPartModels(sequelize);
         const organizationModels = setupOrganizationModels(sequelize);
         const purchaseHistoryModel = setupPurchaseHistoryModels(sequelize);
 
@@ -128,6 +130,12 @@ function modelsAssociations(sequelize) {
             foreignKey: "aircraft_id",
         });
 
+        // 17. Organization has many issued parts (hasMany) 1:n
+        organizationModels.Organization.hasMany(issuedPartModel.IssuedPart, {
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
+
         return {
             ...jobModel,
             ...unitModel,
@@ -138,6 +146,7 @@ function modelsAssociations(sequelize) {
             ...purchaseModel,
             ...engineerModels,
             ...supplierModels,
+            ...issuedPartModel,
             ...organizationModels,
             ...purchaseHistoryModel,
         };
