@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewUnit(sequelize) {
+function unitModel(sequelize) {
     const Unit = sequelize.define(
         "unit",
         {
@@ -28,4 +28,4 @@ function createNewUnit(sequelize) {
     return Unit;
 }
 
-module.exports = { createNewUnit };
+module.exports = { unitModel };
