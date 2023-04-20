@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createPartQuantity(sequelize) {
+function partQuantityModel(sequelize) {
     const PartQuantity = sequelize.define(
         "part_quantity",
         {
@@ -42,4 +42,4 @@ function createPartQuantity(sequelize) {
     return PartQuantity;
 }
 
-module.exports = { createPartQuantity };
+module.exports = { partQuantityModel };

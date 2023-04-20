@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createPartPrice(sequelize) {
+function partPriceModel(sequelize) {
     const PartPrice = sequelize.define(
         "part_price",
         {
@@ -34,4 +34,4 @@ function createPartPrice(sequelize) {
     return PartPrice;
 }
 
-module.exports = { createPartPrice };
+module.exports = { partPriceModel };

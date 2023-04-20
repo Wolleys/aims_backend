@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewPart(sequelize) {
+function partModel(sequelize) {
     const Part = sequelize.define(
         "part",
         {
@@ -27,10 +27,6 @@ function createNewPart(sequelize) {
                 allowNull: false,
             },
             part_status: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            unit_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
@@ -72,4 +68,4 @@ function createNewPart(sequelize) {
     return Part;
 }
 
-module.exports = { createNewPart };
+module.exports = { partModel };
