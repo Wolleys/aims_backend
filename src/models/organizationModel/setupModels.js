@@ -1,24 +1,32 @@
-const { createNewOrganization } = require("./index");
+const { createNewOrganization } = require("./organization");
 const { createOrganizationAvatar } = require("./organizationAvatar");
 const { createOrganizationAddress } = require("./organizationAddress");
 
 function setupOrganizationModels(sequelize) {
     try {
-        // Create organization models
+        // Initialize organization models
         const Organization = createNewOrganization(sequelize);
         const OrganizationAvatar = createOrganizationAvatar(sequelize);
         const OrganizationAddress = createOrganizationAddress(sequelize);
 
-        // *** Organization 1:1 association ***
+        // 1. Organization has one avatar 1:1
         Organization.hasOne(OrganizationAvatar, {
-            onDelete: "CASCADE",
-            foreignKey: "organization_id",
             as: "avatar",
-        });
-        Organization.hasOne(OrganizationAddress, {
             onDelete: "CASCADE",
             foreignKey: "organization_id",
+        });
+        OrganizationAvatar.belongsTo(Organization, {
+            foreignKey: "organization_id",
+        });
+
+        // 2. Organization has one address 1:1
+        Organization.hasOne(OrganizationAddress, {
             as: "address",
+            onDelete: "CASCADE",
+            foreignKey: "organization_id",
+        });
+        OrganizationAddress.belongsTo(Organization, {
+            foreignKey: "organization_id",
         });
 
         return {
