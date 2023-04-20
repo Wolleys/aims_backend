@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewEngineer(sequelize) {
+function engineerModel(sequelize) {
     const Engineer = sequelize.define(
         "engineer",
         {
@@ -60,4 +60,4 @@ function createNewEngineer(sequelize) {
     return Engineer;
 }
 
-module.exports = { createNewEngineer };
+module.exports = { engineerModel };
