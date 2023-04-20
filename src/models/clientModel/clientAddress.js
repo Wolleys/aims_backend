@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createClientAddress(sequelize) {
+function clientAddressModel(sequelize) {
     const ClientAddress = sequelize.define(
         "client_address",
         {
@@ -46,4 +46,4 @@ function createClientAddress(sequelize) {
     return ClientAddress;
 }
 
-module.exports = { createClientAddress };
+module.exports = { clientAddressModel };

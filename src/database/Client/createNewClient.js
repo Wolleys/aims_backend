@@ -13,7 +13,7 @@ const createNewClient = async (newClient, organizationId) => {
 
         // Check if email already exists
         const emailCol = "email";
-        const emailVal = newSupplier.email;
+        const emailVal = newClient.email;
         const emailAttrs = ["email", "organization_id"];
         await isAlreadyAdded(Client, emailCol, emailVal, organizationId, emailAttrs);
 

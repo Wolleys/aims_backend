@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewClient(sequelize) {
+function clientModel(sequelize) {
     const Client = sequelize.define(
         "client",
         {
@@ -52,4 +52,4 @@ function createNewClient(sequelize) {
     return Client;
 }
 
-module.exports = { createNewClient };
+module.exports = { clientModel };
