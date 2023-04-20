@@ -1,15 +1,15 @@
-const { createNewSupplier } = require("./supplier");
-const { createSupplierAvatar } = require("./supplierAvatar");
-const { createSupplierAddress } = require("./supplierAddress");
-const { createNewOrganization } = require("../organizationModel/organization");
+const { supplierModel } = require("./supplier");
+const { supplierAvatarModel } = require("./supplierAvatar");
+const { supplierAddressModel } = require("./supplierAddress");
+const { organizationModel } = require("../organizationModel/organization");
 
 function supplierAssociations(sequelize) {
     try {
         // Initialize models
-        const Supplier = createNewSupplier(sequelize);
-        const Organization = createNewOrganization(sequelize);
-        const SupplierAvatar = createSupplierAvatar(sequelize);
-        const SupplierAddress = createSupplierAddress(sequelize);
+        const Supplier = supplierModel(sequelize);
+        const Organization = organizationModel(sequelize);
+        const SupplierAvatar = supplierAvatarModel(sequelize);
+        const SupplierAddress = supplierAddressModel(sequelize);
 
         // 1. Supplier has one avatar 1:1
         Supplier.hasOne(SupplierAvatar, {

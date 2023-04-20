@@ -1,13 +1,13 @@
-const { createNewOrganization } = require("./organization");
-const { createOrganizationAvatar } = require("./organizationAvatar");
-const { createOrganizationAddress } = require("./organizationAddress");
+const { organizationModel } = require("./organization");
+const { organizationAvatarModel } = require("./organizationAvatar");
+const { organizationAddressModel } = require("./organizationAddress");
 
 function organizationAssociations(sequelize) {
     try {
         // Initialize models
-        const Organization = createNewOrganization(sequelize);
-        const OrganizationAvatar = createOrganizationAvatar(sequelize);
-        const OrganizationAddress = createOrganizationAddress(sequelize);
+        const Organization = organizationModel(sequelize);
+        const OrganizationAvatar = organizationAvatarModel(sequelize);
+        const OrganizationAddress = organizationAddressModel(sequelize);
 
         // 1. Organization has one avatar 1:1
         Organization.hasOne(OrganizationAvatar, {

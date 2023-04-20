@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createOrganizationAddress(sequelize) {
+function organizationAddressModel(sequelize) {
     const OrganizationAddress = sequelize.define(
         "organization_address",
         {
@@ -46,4 +46,4 @@ function createOrganizationAddress(sequelize) {
     return OrganizationAddress;
 }
 
-module.exports = { createOrganizationAddress };
+module.exports = { organizationAddressModel };

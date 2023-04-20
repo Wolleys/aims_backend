@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewOrganization(sequelize) {
+function organizationModel(sequelize) {
     const Organization = sequelize.define(
         "organization",
         {
@@ -57,4 +57,4 @@ function createNewOrganization(sequelize) {
     return Organization;
 }
 
-module.exports = { createNewOrganization };
+module.exports = { organizationModel };

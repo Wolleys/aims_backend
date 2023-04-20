@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewSupplier(sequelize) {
+function supplierModel(sequelize) {
     const Supplier = sequelize.define(
         "supplier",
         {
@@ -52,4 +52,4 @@ function createNewSupplier(sequelize) {
     return Supplier;
 }
 
-module.exports = { createNewSupplier };
+module.exports = { supplierModel };
