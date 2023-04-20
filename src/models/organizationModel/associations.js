@@ -2,9 +2,9 @@ const { createNewOrganization } = require("./organization");
 const { createOrganizationAvatar } = require("./organizationAvatar");
 const { createOrganizationAddress } = require("./organizationAddress");
 
-function setupOrganizationModels(sequelize) {
+function organizationAssociations(sequelize) {
     try {
-        // Initialize organization models
+        // Initialize models
         const Organization = createNewOrganization(sequelize);
         const OrganizationAvatar = createOrganizationAvatar(sequelize);
         const OrganizationAddress = createOrganizationAddress(sequelize);
@@ -39,4 +39,4 @@ function setupOrganizationModels(sequelize) {
     }
 }
 
-module.exports = { setupOrganizationModels };
+module.exports = { organizationAssociations };

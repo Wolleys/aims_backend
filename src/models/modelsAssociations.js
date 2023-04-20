@@ -6,9 +6,9 @@
 // const { setupEngineerModels } = require("./engineerModel/setupModels");
 // const { setupAircraftModels } = require("./aircraftModel/setupModels");
 // const { setupPurchaseModels } = require("./purchaseModel/setupModels");
-// const { setupSupplierModels } = require("./supplierModel/setupModels");
+const { supplierAssociations } = require("./supplierModel/associations");
 // const { setupIssuedPartModels } = require("./issuedPartModel/setupModels");
-const { setupOrganizationModels } = require("./organizationModel/setupModels");
+const { organizationAssociations } = require("./organizationModel/associations");
 // const {
 //     setupPurchaseHistoryModels,
 // } = require("./purchaseHistoryModel/setupModels");
@@ -23,9 +23,9 @@ function modelsAssociations(sequelize) {
         // const aircraftModel = setupAircraftModels(sequelize);
         // const purchaseModel = setupPurchaseModels(sequelize);
         // const engineerModels = setupEngineerModels(sequelize);
-        // const supplierModels = setupSupplierModels(sequelize);
+        const Supplier = supplierAssociations(sequelize);
         // const issuedPartModel = setupIssuedPartModels(sequelize);
-        const organizationModels = setupOrganizationModels(sequelize);
+        const Organization = organizationAssociations(sequelize);
         // const purchaseHistoryModel = setupPurchaseHistoryModels(sequelize);
 
         // 1. Organization has many Suppliers (hasMany) 1:n
@@ -145,9 +145,9 @@ function modelsAssociations(sequelize) {
             // ...aircraftModel,
             // ...purchaseModel,
             // ...engineerModels,
-            // ...supplierModels,
+            ...Supplier,
             // ...issuedPartModel,
-            ...organizationModels,
+            ...Organization,
             // ...purchaseHistoryModel,
         };
     } catch (err) {
