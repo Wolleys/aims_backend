@@ -4,7 +4,7 @@
 // const { setupUserModels } = require("./userModel/setupModels");
 const { clientAssociations } = require("./clientModel/associations");
 // const { setupEngineerModels } = require("./engineerModel/setupModels");
-// const { setupAircraftModels } = require("./aircraftModel/setupModels");
+const { aircraftAssociations } = require("./aircraftModel/associations");
 // const { setupPurchaseModels } = require("./purchaseModel/setupModels");
 const { supplierAssociations } = require("./supplierModel/associations");
 // const { setupIssuedPartModels } = require("./issuedPartModel/setupModels");
@@ -20,7 +20,7 @@ function modelsAssociations(sequelize) {
         // const userModels = setupUserModels(sequelize);
         // const partModels = setupPartModels(sequelize);
         const Client = clientAssociations(sequelize);
-        // const aircraftModel = setupAircraftModels(sequelize);
+        const Aircraft = aircraftAssociations(sequelize);
         // const purchaseModel = setupPurchaseModels(sequelize);
         // const engineerModels = setupEngineerModels(sequelize);
         const Supplier = supplierAssociations(sequelize);
@@ -142,7 +142,7 @@ function modelsAssociations(sequelize) {
             // ...userModels,
             // ...partModels,
             ...Client,
-            // ...aircraftModel,
+            ...Aircraft,
             // ...purchaseModel,
             // ...engineerModels,
             ...Supplier,

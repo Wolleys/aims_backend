@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewAircraft(sequelize) {
+function aircraftModel(sequelize) {
     const Aircraft = sequelize.define(
         "aircraft",
         {
@@ -32,4 +32,4 @@ function createNewAircraft(sequelize) {
     return Aircraft;
 }
 
-module.exports = { createNewAircraft };
+module.exports = { aircraftModel };
