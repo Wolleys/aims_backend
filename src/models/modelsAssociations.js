@@ -1,7 +1,7 @@
 // const { setupJobModels } = require("./jobModel/setupModels");
 // const { setupPartModels } = require("./partModel/setupModels");
 const { unitAssociations } = require("./unitModel/associations");
-// const { setupUserModels } = require("./userModel/setupModels");
+const { userAssociations } = require("./userModel/associations");
 const { clientAssociations } = require("./clientModel/associations");
 // const { setupEngineerModels } = require("./engineerModel/setupModels");
 const { aircraftAssociations } = require("./aircraftModel/associations");
@@ -19,7 +19,7 @@ function modelsAssociations(sequelize) {
     try {
         // const jobModel = setupJobModels(sequelize);
         const Unit = unitAssociations(sequelize);
-        // const userModels = setupUserModels(sequelize);
+        const User = userAssociations(sequelize);
         // const partModels = setupPartModels(sequelize);
         const Client = clientAssociations(sequelize);
         const Aircraft = aircraftAssociations(sequelize);
@@ -141,7 +141,7 @@ function modelsAssociations(sequelize) {
         return {
             // ...jobModel,
             ...Unit,
-            // ...userModels,
+            ...User,
             // ...partModels,
             ...Client,
             ...Aircraft,

@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const env = process.env;
 
-function createUserAvatar(sequelize) {
+function userAvatarModel(sequelize) {
     const UserAvatar = sequelize.define(
         "user_avatar",
         {
@@ -28,4 +28,4 @@ function createUserAvatar(sequelize) {
     return UserAvatar;
 }
 
-module.exports = { createUserAvatar };
+module.exports = { userAvatarModel };
