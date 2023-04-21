@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewIssuedPart(sequelize) {
+function issuedPartModel(sequelize) {
     const issuedPart = sequelize.define(
         "issued_part",
         {
@@ -12,14 +12,6 @@ function createNewIssuedPart(sequelize) {
             },
             date_of_issue: {
                 type: DataTypes.DATE,
-                allowNull: false,
-            },
-            job_id: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            part_id: {
-                type: DataTypes.STRING,
                 allowNull: false,
             },
             part_status: {
@@ -36,10 +28,6 @@ function createNewIssuedPart(sequelize) {
             },
             sp_in_usd: {
                 type: DataTypes.FLOAT(11, 2),
-                allowNull: false,
-            },
-            issued_to: {
-                type: DataTypes.STRING,
                 allowNull: false,
             },
             issued_by: {
@@ -60,4 +48,4 @@ function createNewIssuedPart(sequelize) {
     return issuedPart;
 }
 
-module.exports = { createNewIssuedPart };
+module.exports = { issuedPartModel };

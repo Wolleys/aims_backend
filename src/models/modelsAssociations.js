@@ -7,7 +7,7 @@ const { engineerAssociations } = require("./engineerModel/associations");
 const { aircraftAssociations } = require("./aircraftModel/associations");
 const { purchaseAssociations } = require("./purchaseModel/associations");
 const { supplierAssociations } = require("./supplierModel/associations");
-// const { setupIssuedPartModels } = require("./issuedPartModel/setupModels");
+const { issuedPartAssociations } = require("./issuedPartModel/associations");
 const { organizationAssociations } = require("./organizationModel/associations");
 const { purchaseHistoryAssociations } = require("./purchaseHistoryModel/associations");
 
@@ -22,7 +22,7 @@ function modelsAssociations(sequelize) {
         const Purchase = purchaseAssociations(sequelize);
         const Engineer = engineerAssociations(sequelize);
         const Supplier = supplierAssociations(sequelize);
-        // const issuedPartModel = setupIssuedPartModels(sequelize);
+        const IssuedPart = issuedPartAssociations(sequelize);
         const Organization = organizationAssociations(sequelize);
         const PurchaseHistory = purchaseHistoryAssociations(sequelize);
 
@@ -144,7 +144,7 @@ function modelsAssociations(sequelize) {
             ...Purchase,
             ...Engineer,
             ...Supplier,
-            // ...issuedPartModel,
+            ...IssuedPart,
             ...Organization,
             ...PurchaseHistory,
         };
