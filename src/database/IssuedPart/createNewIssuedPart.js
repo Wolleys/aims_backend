@@ -9,6 +9,7 @@ const { checkOrganization } = require("../helpers/checkOrganization");
 const {
     IssuedPartHistory,
 } = require("../issuedPartHistory/issuedPartHistoryModel");
+const { checkQuantityOnHand } = require("../helpers/checkQuantityOnHand");
 
 const createNewIssuedPart = async (organizationId, newIssuedPart) => {
     let transaction;
@@ -21,6 +22,12 @@ const createNewIssuedPart = async (organizationId, newIssuedPart) => {
 
         const findPart = "a part";
         await findItem(Part, findPart, newIssuedPart.part_id, organizationId);
+
+        await checkQuantityOnHand(
+            PartQuantity,
+            newIssuedPart.part_id,
+            newIssuedPart.quantity_issued
+        );
 
         const findEngineer = "an engineer";
         await findItem(
