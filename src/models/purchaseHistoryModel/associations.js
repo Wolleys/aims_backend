@@ -9,7 +9,7 @@ function purchaseHistoryAssociations(sequelize) {
         const Purchase = purchaseModel(sequelize);
         const PurchaseHistory = purchaseHistoryModel(sequelize);
 
-        // 1. Purcahse belongs to many Parts n:m
+        // 1. Purchase belongs to many Parts n:m
         Purchase.belongsToMany(Part, {
             through: PurchaseHistory,
             foreignKey: "purchase_id",

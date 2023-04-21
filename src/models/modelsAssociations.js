@@ -10,6 +10,7 @@ const { supplierAssociations } = require("./supplierModel/associations");
 const { issuedPartAssociations } = require("./issuedPartModel/associations");
 const { organizationAssociations } = require("./organizationModel/associations");
 const { purchaseHistoryAssociations } = require("./purchaseHistoryModel/associations");
+const { issuedPartHistoryAssociations } = require("./issuedPartHistoryModel/associations");
 
 function modelsAssociations(sequelize) {
     try {
@@ -25,6 +26,7 @@ function modelsAssociations(sequelize) {
         const IssuedPart = issuedPartAssociations(sequelize);
         const Organization = organizationAssociations(sequelize);
         const PurchaseHistory = purchaseHistoryAssociations(sequelize);
+        const IssuedPartHistory = issuedPartHistoryAssociations(sequelize);
 
         // 1. Organization has many Suppliers (hasMany) 1:n
         // organizationModels.Organization.hasMany(supplierModels.Supplier, {
@@ -147,6 +149,7 @@ function modelsAssociations(sequelize) {
             ...IssuedPart,
             ...Organization,
             ...PurchaseHistory,
+            ...IssuedPartHistory,
         };
     } catch (err) {
         throw err;
