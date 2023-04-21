@@ -5,15 +5,11 @@ const { userAssociations } = require("./userModel/associations");
 const { clientAssociations } = require("./clientModel/associations");
 const { engineerAssociations } = require("./engineerModel/associations");
 const { aircraftAssociations } = require("./aircraftModel/associations");
-// const { setupPurchaseModels } = require("./purchaseModel/setupModels");
+const { purchaseAssociations } = require("./purchaseModel/associations");
 const { supplierAssociations } = require("./supplierModel/associations");
 // const { setupIssuedPartModels } = require("./issuedPartModel/setupModels");
-const {
-    organizationAssociations,
-} = require("./organizationModel/associations");
-// const {
-//     setupPurchaseHistoryModels,
-// } = require("./purchaseHistoryModel/setupModels");
+const { organizationAssociations } = require("./organizationModel/associations");
+const { purchaseHistoryAssociations } = require("./purchaseHistoryModel/associations");
 
 function modelsAssociations(sequelize) {
     try {
@@ -23,12 +19,12 @@ function modelsAssociations(sequelize) {
         const Part = partAssociations(sequelize);
         const Client = clientAssociations(sequelize);
         const Aircraft = aircraftAssociations(sequelize);
-        // const purchaseModel = setupPurchaseModels(sequelize);
+        const Purchase = purchaseAssociations(sequelize);
         const Engineer = engineerAssociations(sequelize);
         const Supplier = supplierAssociations(sequelize);
         // const issuedPartModel = setupIssuedPartModels(sequelize);
         const Organization = organizationAssociations(sequelize);
-        // const purchaseHistoryModel = setupPurchaseHistoryModels(sequelize);
+        const PurchaseHistory = purchaseHistoryAssociations(sequelize);
 
         // 1. Organization has many Suppliers (hasMany) 1:n
         // organizationModels.Organization.hasMany(supplierModels.Supplier, {
@@ -145,12 +141,12 @@ function modelsAssociations(sequelize) {
             ...Part,
             ...Client,
             ...Aircraft,
-            // ...purchaseModel,
+            ...Purchase,
             ...Engineer,
             ...Supplier,
             // ...issuedPartModel,
             ...Organization,
-            // ...purchaseHistoryModel,
+            ...PurchaseHistory,
         };
     } catch (err) {
         throw err;

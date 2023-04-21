@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewPurchase(sequelize) {
+function purchaseModel(sequelize) {
     const Purchase = sequelize.define(
         "purchase",
         {
@@ -68,4 +68,4 @@ function createNewPurchase(sequelize) {
     return Purchase;
 }
 
-module.exports = { createNewPurchase };
+module.exports = { purchaseModel };

@@ -32,7 +32,6 @@ const createNewPurchase = async (organizationId, partId, newPurchase) => {
             ...newPurchase,
             purchase_id: createdPurchase.id,
             part_id: createdPurchase.part_id,
-            organization_id: createdPurchase.organization_id,
         };
 
         const updatePartQuantity = {

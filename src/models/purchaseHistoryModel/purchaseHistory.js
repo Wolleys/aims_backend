@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewPurchaseHistory(sequelize) {
+function purchaseHistoryModel(sequelize) {
     const PurchaseHistory = sequelize.define(
         "purchase_history",
         {
@@ -28,4 +28,4 @@ function createNewPurchaseHistory(sequelize) {
     return PurchaseHistory;
 }
 
-module.exports = { createNewPurchaseHistory };
+module.exports = { purchaseHistoryModel };
