@@ -1,4 +1,4 @@
-// const { setupJobModels } = require("./jobModel/setupModels");
+const { jobAssociations } = require("./jobModel/associations");
 const { partAssociations } = require("./partModel/associations");
 const { unitAssociations } = require("./unitModel/associations");
 const { userAssociations } = require("./userModel/associations");
@@ -13,7 +13,7 @@ const { purchaseHistoryAssociations } = require("./purchaseHistoryModel/associat
 
 function modelsAssociations(sequelize) {
     try {
-        // const jobModel = setupJobModels(sequelize);
+        const Job = jobAssociations(sequelize);
         const Unit = unitAssociations(sequelize);
         const User = userAssociations(sequelize);
         const Part = partAssociations(sequelize);
@@ -135,7 +135,7 @@ function modelsAssociations(sequelize) {
         // });
 
         return {
-            // ...jobModel,
+            ...Job,
             ...Unit,
             ...User,
             ...Part,

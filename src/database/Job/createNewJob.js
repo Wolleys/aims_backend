@@ -1,6 +1,7 @@
 const { Job } = require("./jobModel");
 const { Client } = require("../Client/clientModel");
 const { findItem } = require("../helpers/findItem");
+const { Aircraft } = require("../Aircraft/aircraftModel");
 const { isAlreadyAdded } = require("../helpers/isAlreadyAdded");
 const { checkOrganization } = require("../helpers/checkOrganization");
 
@@ -9,6 +10,9 @@ const createNewJob = async (organizationId, newJob) => {
 
     const findClient = "a client";
     await findItem(Client, findClient, newJob.client_id, organizationId);
+
+    const findAircraft = "an aircraft";
+    await findItem(Aircraft, findAircraft, newJob.aircraft_id, organizationId);
 
     // Check if job number already exists
     const jobNumCol = "job_number";

@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
-function createNewJob(sequelize) {
+function jobModel(sequelize) {
     const Job = sequelize.define(
         "job",
         {
@@ -45,4 +45,4 @@ function createNewJob(sequelize) {
     return Job;
 }
 
-module.exports = { createNewJob };
+module.exports = { jobModel };
