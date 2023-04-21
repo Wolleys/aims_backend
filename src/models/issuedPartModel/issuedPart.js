@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 
 function issuedPartModel(sequelize) {
-    const issuedPart = sequelize.define(
+    const IssuedPart = sequelize.define(
         "issued_part",
         {
             id: {
@@ -22,7 +22,7 @@ function issuedPartModel(sequelize) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            quantity_remaining: {
+            quantity_on_hand: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
@@ -33,6 +33,47 @@ function issuedPartModel(sequelize) {
             issued_by: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            // add foreign keys
+            job_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: "job",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
+            part_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: "part",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
+            engineer_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: "engineer",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
+            organization_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: "organization",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
         },
         {
@@ -45,7 +86,7 @@ function issuedPartModel(sequelize) {
         }
     );
 
-    return issuedPart;
+    return IssuedPart;
 }
 
 module.exports = { issuedPartModel };
