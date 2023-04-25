@@ -1,7 +1,12 @@
 const IssuedPart = require("../../database/IssuedPart");
 
 const getAllIssuedParts = (organizationId) => {
-    return;
+    try {
+        const allIssuedParts = IssuedPart.getAllIssuedParts(organizationId);
+        return allIssuedParts;
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = { getAllIssuedParts };

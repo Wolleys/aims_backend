@@ -40,6 +40,7 @@ const getAllParts = async (organizationId, page, size, q) => {
                 "shelf_life",
                 "duration",
                 "expiry_date",
+                "created_at",
             ],
             include: [
                 {
