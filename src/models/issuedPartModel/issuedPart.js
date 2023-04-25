@@ -34,47 +34,6 @@ function issuedPartModel(sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            // add foreign keys
-            job_id: {
-                type: DataTypes.UUID,
-                allowNull: false,
-                references: {
-                    model: "job",
-                    key: "id",
-                },
-                onUpdate: "CASCADE",
-                onDelete: "CASCADE",
-            },
-            part_id: {
-                type: DataTypes.UUID,
-                allowNull: false,
-                references: {
-                    model: "part",
-                    key: "id",
-                },
-                onUpdate: "CASCADE",
-                onDelete: "CASCADE",
-            },
-            engineer_id: {
-                type: DataTypes.UUID,
-                allowNull: false,
-                references: {
-                    model: "engineer",
-                    key: "id",
-                },
-                onUpdate: "CASCADE",
-                onDelete: "CASCADE",
-            },
-            organization_id: {
-                type: DataTypes.UUID,
-                allowNull: false,
-                references: {
-                    model: "organization",
-                    key: "id",
-                },
-                onUpdate: "CASCADE",
-                onDelete: "CASCADE",
-            },
         },
         {
             paranoid: true,
