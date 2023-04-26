@@ -26,7 +26,25 @@ function issuedPartAssociations(sequelize) {
             foreignKey: "engineer_id",
         });
 
-        // 3. Organization has many Issued Parts 1:n
+        // 3. Job has many Issued Parts 1:n
+        Job.hasMany(IssuedPart, {
+            onDelete: "CASCADE",
+            foreignKey: "job_id",
+        });
+        IssuedPart.belongsTo(Job, {
+            foreignKey: "job_id",
+        });
+
+        // 4. Part has many Issued Parts 1:n
+        Part.hasMany(IssuedPart, {
+            onDelete: "CASCADE",
+            foreignKey: "part_id",
+        });
+        IssuedPart.belongsTo(Part, {
+            foreignKey: "part_id",
+        });
+
+        // 5. Organization has many Issued Parts 1:n
         Organization.hasMany(IssuedPart, {
             onDelete: "CASCADE",
             foreignKey: "organization_id",

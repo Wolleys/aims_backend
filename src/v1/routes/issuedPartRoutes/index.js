@@ -26,7 +26,11 @@ const multipleParams = ["organizationId", "issuedPartId"];
 router.get("/:organizationId", requireParams(singleParam), getAllIssuedParts);
 
 // 2. Get one issued part from a specific organization by id
-router.get("/:organizationId/:issuedPartId", getOneIssuedPart);
+router.get(
+    "/:organizationId/:issuedPartId",
+    requireParams(multipleParams),
+    getOneIssuedPart
+);
 
 // 3. Create a new issued part to a specific organization
 router.post(
