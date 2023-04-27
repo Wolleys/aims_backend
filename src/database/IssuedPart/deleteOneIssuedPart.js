@@ -5,7 +5,7 @@ const { PartQuantity } = require("../PartQuantity/partQuantityModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const {
     IssuedPartHistory,
-} = require("../issuedPartHistory/issuedPartHistoryModel");
+} = require("../IssuedPartHistory/issuedPartHistoryModel");
 
 const deleteOneIssuedPart = async (organizationId, issuedPartId) => {
     let transaction;
@@ -23,7 +23,7 @@ const deleteOneIssuedPart = async (organizationId, issuedPartId) => {
 
         const updatePartQuantity = {
             quantity_issued: -issuedPartHistory.quantity_issued,
-            quantity_on_hand: -issuedPartHistory.quantity_issued,
+            quantity_on_hand: +issuedPartHistory.quantity_issued,
         };
 
         await PartQuantity().increment(

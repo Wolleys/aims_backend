@@ -49,6 +49,10 @@ router.patch(
 );
 
 // 5. Delete one issued part from an organization's hangar by id
-router.delete("/:organizationId/:issuedPartId", deleteOneIssuedPart);
+router.delete(
+    "/:organizationId/:issuedPartId",
+    requireParams(multipleParams),
+    deleteOneIssuedPart
+);
 
 module.exports = router;
