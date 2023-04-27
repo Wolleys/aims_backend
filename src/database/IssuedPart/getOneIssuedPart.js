@@ -39,8 +39,6 @@ const getOneIssuedPart = async (organizationId, issuedPartId) => {
             };
         }
 
-        console.log(issuedPart.part_id);
-
         return issuedPart;
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
