@@ -11,6 +11,7 @@ const { hangarUseAssociations } = require("./hangarUseModel/associations");
 const { issuedPartAssociations } = require("./issuedPartModel/associations");
 const { organizationAssociations } = require("./organizationModel/associations");
 const { purchaseHistoryAssociations } = require("./purchaseHistoryModel/associations");
+const { hangarUseHistoryAssociations } = require("./hangarUseHistoryModel/associations");
 const { issuedPartHistoryAssociations } = require("./issuedPartHistoryModel/associations");
 
 function setupModels(sequelize) {
@@ -28,6 +29,7 @@ function setupModels(sequelize) {
         const IssuedPart = issuedPartAssociations(sequelize);
         const Organization = organizationAssociations(sequelize);
         const PurchaseHistory = purchaseHistoryAssociations(sequelize);
+        const HangarUseHistory = hangarUseHistoryAssociations(sequelize);
         const IssuedPartHistory = issuedPartHistoryAssociations(sequelize);
 
         return {
@@ -44,6 +46,7 @@ function setupModels(sequelize) {
             ...IssuedPart,
             ...Organization,
             ...PurchaseHistory,
+            ...HangarUseHistory,
             ...IssuedPartHistory,
         };
     } catch (err) {
