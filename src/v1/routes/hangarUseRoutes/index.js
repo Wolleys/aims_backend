@@ -10,6 +10,17 @@ const {
     deleteOneIssuedPart,
 } = require("../../../controllers/hangarUseController");
 
+//Import middlewares
+const { requireParams } = require("../../../middlewares/checkParams");
+const { validateSchema } = require("../../../middlewares/validateSchema");
+
+//Import the required issued parts schemas
+const { issuePartSchema } = require("../../../schemas/issuePartSchema");
+
+//Required parameters for this route
+const singleParam = ["organizationId"];
+const multipleParams = ["organizationId", "issuedPartId"];
+
 //Hangar use routes
 // 1. Get all issued parts from an organization's hangar
 router.get("/:organizationId", getAllIssuedParts);
@@ -18,7 +29,12 @@ router.get("/:organizationId", getAllIssuedParts);
 router.get("/:organizationId/:issuedPartId", getOneIssuedPart);
 
 // 3. Create a issued part use to an organization's hangar
-router.post("/:organizationId", createNewIssuedPart);
+router.post(
+    "/:organizationId",
+    requireParams(singleParam),
+    validateSchema(issuePartSchema),
+    createNewIssuedPart
+);
 
 // 4. Update one issued part from an organization's hangar by id
 router.patch("/:organizationId/:issuedPartId", updateOneIssuedPart);

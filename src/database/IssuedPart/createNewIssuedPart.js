@@ -8,7 +8,7 @@ const { PartQuantity } = require("../PartQuantity/partQuantityModel");
 const { checkOrganization } = require("../helpers/checkOrganization");
 const {
     IssuedPartHistory,
-} = require("../issuedPartHistory/issuedPartHistoryModel");
+} = require("../IssuedPartHistory/issuedPartHistoryModel");
 const { checkQuantityOnHand } = require("../helpers/checkQuantityOnHand");
 
 const createNewIssuedPart = async (organizationId, newIssuedPart) => {
