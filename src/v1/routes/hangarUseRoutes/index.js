@@ -41,7 +41,12 @@ router.post(
 );
 
 // 4. Update one issued part from an organization's hangar by id
-router.patch("/:organizationId/:issuedPartId", updateOneIssuedPart);
+router.patch(
+    "/:organizationId/:issuedPartId",
+    requireParams(multipleParams),
+    validateSchema(issuePartSchema),
+    updateOneIssuedPart
+);
 
 // 5. Delete one issued part from an organization's hangar by id
 router.delete("/:organizationId/:issuedPartId", deleteOneIssuedPart);
