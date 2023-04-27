@@ -23,7 +23,7 @@ const multipleParams = ["organizationId", "issuedPartId"];
 
 //Hangar use routes
 // 1. Get all issued parts from an organization's hangar
-router.get("/:organizationId", getAllIssuedParts);
+router.get("/:organizationId", requireParams(singleParam), getAllIssuedParts);
 
 // 2. Get one issued part from an organization's hangar by id
 router.get("/:organizationId/:issuedPartId", getOneIssuedPart);
