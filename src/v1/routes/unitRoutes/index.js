@@ -11,6 +11,7 @@ const {
 } = require("../../../controllers/unitController");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -23,11 +24,17 @@ const multipleParams = ["organizationId", "unitId"];
 
 //Unit routes
 // 1. Get all units from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllUnits);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllUnits
+);
 
 // 2. Get one unit from a specific organization by id
 router.get(
     "/:organizationId/:unitId",
+    verifyToken,
     requireParams(multipleParams),
     getOneUnit
 );
@@ -35,6 +42,7 @@ router.get(
 // 3. Create a new unit to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateSchema(unitSchema),
     createNewUnit
@@ -43,6 +51,7 @@ router.post(
 // 4. Update one unit from a specific organization by id
 router.patch(
     "/:organizationId/:unitId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(unitSchema),
     updateOneUnit
@@ -51,6 +60,7 @@ router.patch(
 // 5. Delete one unit from a specific organization by id
 router.delete(
     "/:organizationId/:unitId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneUnit
 );

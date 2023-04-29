@@ -11,6 +11,7 @@ const {
 } = require("../../../controllers/engineerController");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -23,11 +24,17 @@ const multipleParams = ["organizationId", "engineerId"];
 
 //Engineer routes
 // 1. Get all engineers from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllEngineers);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllEngineers
+);
 
 // 2. Get one engineer from a specific organization by id
 router.get(
     "/:organizationId/:engineerId",
+    verifyToken,
     requireParams(multipleParams),
     getOneEngineer
 );
@@ -35,6 +42,7 @@ router.get(
 // 3. Create a new engineer to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateSchema(engineerSchema),
     createNewEngineer
@@ -43,6 +51,7 @@ router.post(
 // 4. Update one engineer from a specific organization by id
 router.patch(
     "/:organizationId/:engineerId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(engineerSchema),
     updateOneEngineer
@@ -51,6 +60,7 @@ router.patch(
 // 5. Delete one engineer from a specific organization by id
 router.delete(
     "/:organizationId/:engineerId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneEngineer
 );

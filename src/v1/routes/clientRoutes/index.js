@@ -12,6 +12,7 @@ const {
 const { updateOneAddress } = require("../../../controllers/clientAddress");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -31,11 +32,17 @@ const multipleParams = ["organizationId", "clientId"];
 
 //Client routes
 // 1. Get all clients from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllClients);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllClients
+);
 
 // 2. Get one client from a specific organization by id
 router.get(
     "/:organizationId/:clientId",
+    verifyToken,
     requireParams(multipleParams),
     getOneClient
 );
@@ -43,6 +50,7 @@ router.get(
 // 3. Create a new client to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateAll(),
     createNewClient
@@ -51,6 +59,7 @@ router.post(
 // 4. Update one client from a specific organization by id
 router.patch(
     "/:organizationId/:clientId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(newClient),
     updateOneClient
@@ -59,6 +68,7 @@ router.patch(
 // 5. Update one client address from a specific organization by id
 router.patch(
     "/:organizationId/:clientId/address",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(physicalAddress),
     updateOneAddress
@@ -67,6 +77,7 @@ router.patch(
 // 6. Delete one client from a specific organization by id
 router.delete(
     "/:organizationId/:clientId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneClient
 );

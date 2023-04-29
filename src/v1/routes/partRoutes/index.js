@@ -11,6 +11,7 @@ const {
 } = require("../../../controllers/partController");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -35,11 +36,17 @@ const multipleParams = ["organizationId", "partId"];
 
 //Part routes
 // 1. Get all parts from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllParts);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllParts
+);
 
 // 2. Get one part from a specific organization by id
 router.get(
     "/:organizationId/:partId",
+    verifyToken,
     requireParams(multipleParams),
     getOnePart
 );
@@ -47,6 +54,7 @@ router.get(
 // 3. Create a new part to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateAll(),
     createNewPart
@@ -55,6 +63,7 @@ router.post(
 // 4. Update one part from a specific organization by id
 router.patch(
     "/:organizationId/:partId",
+    verifyToken,
     requireParams(multipleParams),
     validateAll(),
     updateOnePart
@@ -63,6 +72,7 @@ router.patch(
 // 5. Delete one part from a specific organization by id
 router.delete(
     "/:organizationId/:partId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOnePart
 );

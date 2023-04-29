@@ -11,7 +11,7 @@ const login = async (req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000, // 1 day
         });
-        res.status(200).send({ auth: true, data: createdAircraft });
+        res.status(200).send({ auth: true, data: loggedInUser });
     } catch (error) {
         res.status(error?.status || 500).send({
             auth: false,

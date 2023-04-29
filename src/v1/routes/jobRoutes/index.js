@@ -12,6 +12,7 @@ const {
 } = require("../../../controllers/jobController");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -24,14 +25,25 @@ const multipleParams = ["organizationId", "jobId"];
 
 //Job routes
 // 1. Get all jobs from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllJobs);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllJobs
+);
 
 // 2. Get one job from a specific organization by id
-router.get("/:organizationId/:jobId", requireParams(multipleParams), getOneJob);
+router.get(
+    "/:organizationId/:jobId",
+    verifyToken,
+    requireParams(multipleParams),
+    getOneJob
+);
 
 // 3. Create a new job to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateSchema(jobSchema),
     createNewJob
@@ -40,6 +52,7 @@ router.post(
 // 4. Update one job from a specific organization by id
 router.put(
     "/:organizationId/:jobId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(jobSchema),
     updateOneJob
@@ -48,6 +61,7 @@ router.put(
 // 5. Delete one job from a specific organization by id
 router.delete(
     "/:organizationId/:jobId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneJob
 );
@@ -55,6 +69,7 @@ router.delete(
 // 6. Close one job from a specific organization by id
 router.patch(
     "/:organizationId/:jobId",
+    verifyToken,
     requireParams(multipleParams),
     closeOneJob
 );

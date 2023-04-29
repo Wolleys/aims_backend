@@ -12,6 +12,7 @@ const {
 const { updateOneAddress } = require("../../../controllers/supplierAddress");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -31,11 +32,17 @@ const multipleParams = ["organizationId", "supplierId"];
 
 //Supplier routes
 // 1. Get all suppliers from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllSuppliers);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllSuppliers
+);
 
 // 2. Get one supplier from a specific organization by id
 router.get(
     "/:organizationId/:supplierId",
+    verifyToken,
     requireParams(multipleParams),
     getOneSupplier
 );
@@ -43,6 +50,7 @@ router.get(
 // 3. Create a new supplier to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateAll(),
     createNewSupplier
@@ -51,6 +59,7 @@ router.post(
 // 4. Update one supplier from a specific organization by id
 router.patch(
     "/:organizationId/:supplierId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(newSupplier),
     updateOneSupplier
@@ -59,6 +68,7 @@ router.patch(
 // 5. Update one supplier address from a specific organization by id
 router.patch(
     "/:organizationId/:supplierId/address",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(physicalAddress),
     updateOneAddress
@@ -67,6 +77,7 @@ router.patch(
 // 6. Delete one supplier from a specific organization by id
 router.delete(
     "/:organizationId/:supplierId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneSupplier
 );

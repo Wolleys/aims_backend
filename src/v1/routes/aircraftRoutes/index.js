@@ -11,6 +11,7 @@ const {
 } = require("../../../controllers/aircraftController");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -23,11 +24,17 @@ const multipleParams = ["organizationId", "aircraftId"];
 
 //Aircraft routes
 // 1. Get all aircrafts from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllAircrafts);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllAircrafts
+);
 
 // 2. Get one aircraft from a specific organization by id
 router.get(
     "/:organizationId/:aircraftId",
+    verifyToken,
     requireParams(multipleParams),
     getOneAircraft
 );
@@ -35,6 +42,7 @@ router.get(
 // 3. Create a new aircraft to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateSchema(aircraftSchema),
     createNewAircraft
@@ -43,6 +51,7 @@ router.post(
 // 4. Update one aircraft from a specific organization by id
 router.patch(
     "/:organizationId/:aircraftId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(aircraftSchema),
     updateOneAircraft
@@ -51,6 +60,7 @@ router.patch(
 // 5. Delete one aircraft from a specific organization by id
 router.delete(
     "/:organizationId/:aircraftId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneAircraft
 );

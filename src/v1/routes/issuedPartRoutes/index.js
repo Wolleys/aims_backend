@@ -11,6 +11,7 @@ const {
 } = require("../../../controllers/issuedPartController");
 
 //Import middlewares
+const { verifyToken } = require("../../../middlewares/auth/jwt");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -23,11 +24,17 @@ const multipleParams = ["organizationId", "issuedPartId"];
 
 //Issued parts routes
 // 1. Get all issued parts from a specific organization
-router.get("/:organizationId", requireParams(singleParam), getAllIssuedParts);
+router.get(
+    "/:organizationId",
+    verifyToken,
+    requireParams(singleParam),
+    getAllIssuedParts
+);
 
 // 2. Get one issued part from a specific organization by id
 router.get(
     "/:organizationId/:issuedPartId",
+    verifyToken,
     requireParams(multipleParams),
     getOneIssuedPart
 );
@@ -35,6 +42,7 @@ router.get(
 // 3. Create a new issued part to a specific organization
 router.post(
     "/:organizationId",
+    verifyToken,
     requireParams(singleParam),
     validateSchema(issuePartSchema),
     createNewIssuedPart
@@ -43,6 +51,7 @@ router.post(
 // 4. Update one issued part from a specific organization by id
 router.patch(
     "/:organizationId/:issuedPartId",
+    verifyToken,
     requireParams(multipleParams),
     validateSchema(issuePartSchema),
     updateOneIssuedPart
@@ -51,6 +60,7 @@ router.patch(
 // 5. Delete one issued part from a specific organization by id
 router.delete(
     "/:organizationId/:issuedPartId",
+    verifyToken,
     requireParams(multipleParams),
     deleteOneIssuedPart
 );
