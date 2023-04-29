@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Import route handlers
 const v1JobRouter = require("./jobRoutes");
+const v1AuthRouter = require("./authRoutes");
 const v1UserRouter = require("./userRoutes");
 const v1UnitRouter = require("./unitRoutes");
 const v1PartRouter = require("./partRoutes");
@@ -17,6 +18,7 @@ const v1OrganizationRouter = require("./organizationRoutes");
 
 // Use route handlers
 router.use("/api/v1/jobs", v1JobRouter);
+router.use("/api/v1/auth", v1AuthRouter);
 router.use("/api/v1/users", v1UserRouter);
 router.use("/api/v1/units", v1UnitRouter);
 router.use("/api/v1/parts", v1PartRouter);
