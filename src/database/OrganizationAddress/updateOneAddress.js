@@ -3,8 +3,8 @@ const { OrganizationAddress } = require("./organizationAddressModel");
 const updateOneAddress = async (organizationId, changes) => {
     try {
         const confirmIdParam = await OrganizationAddress().findOne({
-            where: { organizationId },
-            attributes: ["organizationId"],
+            where: { organization_id: organizationId },
+            attributes: ["organization_id"],
         });
         if (!confirmIdParam) {
             throw {
@@ -15,7 +15,7 @@ const updateOneAddress = async (organizationId, changes) => {
 
         const addressToUpdate = await OrganizationAddress().update(
             { ...changes },
-            { where: { organizationId } }
+            { where: { organization_id: organizationId } }
         );
         if (!addressToUpdate) {
             throw {
