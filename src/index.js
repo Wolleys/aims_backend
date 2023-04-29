@@ -1,10 +1,21 @@
 const express = require("express");
 require("dotenv").config();
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const { connect, getModels } = require("./database/dbConfig");
 const routes = require("./v1/routes");
 
 const env = process.env;
 const app = express();
+app.use(
+  cors({
+    credentials: true,
+    methods: ["GET", "POST"],
+    origin: [env.FRONT_END_ORIGIN],
+   
+  })
+);
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(function attachModels(req, res, next) {

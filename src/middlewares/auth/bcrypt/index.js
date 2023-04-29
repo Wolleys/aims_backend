@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-// Hash the supplied user password
+// Encrypt the supplied user password
 const hashPassword = async (password) => {
     try {
         const salt = await bcrypt.genSalt(10);
