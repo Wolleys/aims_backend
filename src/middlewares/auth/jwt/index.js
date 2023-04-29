@@ -10,4 +10,21 @@ const createToken = (claims) => {
     }
 };
 
-module.exports = { createToken };
+const verifyToken = (req, res, next) => {
+    const accessToken = req.cookies["access-token"];
+    if (!accessToken) {
+        return res
+            .status(401)
+            .send({ auth: false, message: "You are not authenticated!" });
+    }
+    try {
+        const claims = verify(accessToken, env.ACCESS_TOKEN_SECRET);
+        req.user = claims;
+    } catch (error) {
+        res.clearCookie("access-token");
+        return res.status(403).send({ auth: false, message: "Invalid token" });
+    }
+    return next();
+};
+
+module.exports = { createToken, verifyToken };

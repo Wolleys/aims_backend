@@ -6,19 +6,17 @@ const login = async (req, res) => {
     try {
         const loggedInUser = await authService.login(body);
         const accessToken = createToken({ id: loggedInUser.id });
-        
+
         res.cookie("access-token", accessToken, {
-			httpOnly: true,
-			maxAge: 24 * 60 * 60 * 1000, // 1 day
-		});
-        res.status(200).send({ status: "OK", });
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+        });
+        res.status(200).send({ auth: true, data: createdAircraft });
     } catch (error) {
-        res
-            .status(error?.status || 500)
-            .send({
-                status: "FAILED",
-                data: { auth: false, error: error?.message || error },
-            });
+        res.status(error?.status || 500).send({
+            auth: false,
+            data: { error: error?.message || error },
+        });
     }
 };
 
