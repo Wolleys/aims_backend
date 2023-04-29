@@ -1,7 +1,12 @@
 const Auth = require("../../database/Auth");
 
-const login = (data) => {
-    return;
+const login = (user) => {
+    try {
+        const loggedInUser = Auth.login(user);
+        return loggedInUser;
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = { login };

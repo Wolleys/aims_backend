@@ -16,7 +16,7 @@ const validatePassword = async (password, dbPassword) => {
     try {
         const match = await bcrypt.compare(password, dbPassword);
         if (!match) {
-            return res.status(401).json({ auth: false, error: "Invalid password" });
+            throw { status: 400, message: "Invalid credentials" };
         }
         return match;
     } catch (error) {
