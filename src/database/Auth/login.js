@@ -1,9 +1,8 @@
-const { Organization } = require("../Organization/organizationModel");
 const { validatePassword } = require("../../middlewares/auth/bcrypt");
 
-const login = async (user) => {
+const login = async (model, user) => {
     try {
-        const organization = await Organization().findOne({
+        const organization = await model.Organization.findOne({
             where: { email: user.email },
             attributes: ["id", "email", "password"],
         });

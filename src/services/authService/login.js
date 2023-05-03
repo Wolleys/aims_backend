@@ -1,8 +1,8 @@
 const Auth = require("../../database/Auth");
 
-const login = (user) => {
+const login = (model, user) => {
     try {
-        const loggedInUser = Auth.login(user);
+        const loggedInUser = Auth.login(model, user);
         return loggedInUser;
     } catch (error) {
         throw error;
