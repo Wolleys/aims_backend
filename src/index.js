@@ -1,33 +1,28 @@
-const express = require("express");
 require("dotenv").config();
+const env = process.env;
+const express = require("express");
+const app = express();
 const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 const cookieParser = require("cookie-parser");
-const { connect, getModels } = require("./database/dbConfig");
+const startServer = require("./config/startServer");
+const attachModels = require("./middlewares/attachModels");
 const routes = require("./v1/routes");
 
-const env = process.env;
-const app = express();
-app.use(
-  cors({
-    credentials: true,
-    methods: ["GET", "POST"],
-    origin: [env.FRONT_END_ORIGIN],
-   
-  })
-);
-app.use(cookieParser());
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions));
+
+// Built-in middleware for json
 app.use(express.json());
 
-app.use(function attachModels(req, res, next) {
-  req.models = getModels();
-  next();
-});
+// Middleware for cookies
+app.use(cookieParser());
+
+// Attach models
+app.use(attachModels);
 
 // App routes
 app.use(routes);
 
-const PORT = env.PORT || 3300;
-app.listen(PORT, () => {
-  console.log("SERVER: started on port", PORT);
-  setTimeout(connect, 1000);
-});
+// Start server and connect DB
+startServer(app);
