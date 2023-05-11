@@ -4,7 +4,11 @@ const env = process.env;
 const createToken = (claims) => {
     try {
         const accessToken = sign(claims, env.ACCESS_TOKEN_SECRET, {
-            expiresIn: "20m",
+            expiresIn: "30s",
+        });
+
+        const refreshToken = sign(claims, env.REFRESH_TOKEN_SECRET, {
+            expiresIn: "1d",
         });
         return accessToken;
     } catch (error) {

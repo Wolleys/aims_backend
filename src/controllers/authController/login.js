@@ -10,9 +10,9 @@ const login = async (req, res) => {
         const accessToken = createToken(claims); // Serialize user using the secrect key
 
         let options = {
-            secure: true,
+            // secure: true,
             httpOnly: true,
-            sameSite: "None",
+            // sameSite: "None",
             maxAge: 20 * 60 * 1000, // Expires in 20min
         };
 
