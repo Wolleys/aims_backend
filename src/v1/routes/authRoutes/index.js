@@ -2,7 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 //Import aircraft controllers
-const { login } = require("../../../controllers/authController");
+const {
+    login,
+    logout,
+    refreshToken,
+} = require("../../../controllers/authController");
 
 //Import middlewares
 const { validateSchema } = require("../../../middlewares/validateSchema");
@@ -13,5 +17,11 @@ const { authSchema } = require("../../../schemas/authSchema");
 //Auth routes
 // 1. Login user to their account
 router.post("/login", validateSchema(authSchema), login);
+
+// 2. Refresh user token
+router.get("/refresh", refreshToken);
+
+// 3. Logout user from their account
+router.get("/logout", logout);
 
 module.exports = router;
