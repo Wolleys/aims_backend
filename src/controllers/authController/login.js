@@ -7,7 +7,13 @@ const login = async (req, res) => {
     try {
         const loggedInUser = await authService.login(model, body);
         const claims = { id: loggedInUser.id };
-        const accessToken = createToken(claims); // Serialize user using the secrect key
+        const jwt = createToken(claims); // Serialize user using the secrect key
+
+        // Save refreshToken with current user
+        await model.Organization.update(
+            { refresh_token: jwt.refreshToken },
+            { where: { id: loggedInUser.id } }
+        );
 
         let options = {
             // secure: true,
@@ -16,8 +22,8 @@ const login = async (req, res) => {
             maxAge: 20 * 60 * 1000, // Expires in 20min
         };
 
-        res.cookie("access-token", accessToken, options);
-        res.status(200).send({ auth: true, token: accessToken });
+        res.cookie("access-token", jwt.refreshToken, options);
+        res.status(200).send({ auth: true, token: jwt.accessToken });
     } catch (error) {
         res.status(error?.status || 500).send({
             auth: false,

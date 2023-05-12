@@ -8,29 +8,29 @@ const createToken = (claims) => {
         });
 
         const refreshToken = sign(claims, env.REFRESH_TOKEN_SECRET, {
-            expiresIn: "1d",
+            expiresIn: "20min",
         });
-        return accessToken;
+        return { accessToken, refreshToken };
     } catch (error) {
         throw error;
     }
 };
 
 const verifyToken = (req, res, next) => {
-    const accessToken = req.cookies["access-token"];
-    if (!accessToken) {
+    const bearerHeader = req.headers["authorization"];
+    if (!bearerHeader) {
         return res
             .status(401)
             .send({ auth: false, message: "You are not authenticated!" });
     }
-    try {
-        const claims = verify(accessToken, env.ACCESS_TOKEN_SECRET);
-        req.user = claims;
-    } catch (error) {
-        res.clearCookie("access-token");
-        return res.status(403).send({ auth: false, message: "Invalid token" });
-    }
-    return next();
+    const bearerToken = bearerHeader.split(" ")[1];
+    verify(bearerToken, env.ACCESS_TOKEN_SECRET, (err, data) => {
+        if (err) {
+            return res.status(403).send({ auth: false, message: "Invalid token" });
+        }
+        req.user = data;
+        next();
+    });
 };
 
 module.exports = { createToken, verifyToken };
