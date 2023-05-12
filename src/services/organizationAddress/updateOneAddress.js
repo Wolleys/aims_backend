@@ -1,8 +1,9 @@
 const OrganizationAddress = require("../../database/OrganizationAddress");
 
-const updateOneAddress = (organizationId, changes) => {
+const updateOneAddress = (model, organizationId, changes) => {
     try {
         const updatedAddress = OrganizationAddress.updateOneAddress(
+            model,
             organizationId,
             changes
         );

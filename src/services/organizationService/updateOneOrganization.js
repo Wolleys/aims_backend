@@ -1,8 +1,9 @@
 const Organization = require("../../database/Organization");
 
-const updateOneOrganization = (organizationId, changes) => {
+const updateOneOrganization = (model, organizationId, changes) => {
     try {
         const updatedOrganization = Organization.updateOneOrganization(
+            model,
             organizationId,
             changes
         );

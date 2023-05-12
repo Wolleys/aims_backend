@@ -1,9 +1,11 @@
 const organizationService = require("../../services/organizationService");
 
 const getOneOrganization = async (req, res) => {
+    const model = req.models;
     const organizationId = req.params.organizationId;
     try {
         const organization = await organizationService.getOneOrganization(
+            model,
             organizationId
         );
         res.send({ status: "OK", data: organization });

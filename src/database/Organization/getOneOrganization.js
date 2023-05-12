@@ -1,14 +1,6 @@
-const { Organization } = require("./organizationModel");
-const {
-    OrganizationAvatar,
-} = require("../OrganizationAvatar/organizationAvatarModel");
-const {
-    OrganizationAddress,
-} = require("../OrganizationAddress/organizationAddressModel");
-
-const getOneOrganization = async (organizationId) => {
+const getOneOrganization = async (model, organizationId) => {
     try {
-        const organization = await Organization().findByPk(organizationId, {
+        const organization = await model.Organization.findByPk(organizationId, {
             attributes: [
                 "id",
                 "first_name",
@@ -21,7 +13,7 @@ const getOneOrganization = async (organizationId) => {
             ],
             include: [
                 {
-                    model: OrganizationAddress(),
+                    model: model.OrganizationAddress,
                     as: "address",
                     attributes: [
                         "id",
@@ -34,7 +26,7 @@ const getOneOrganization = async (organizationId) => {
                     ],
                 },
                 {
-                    model: OrganizationAvatar(),
+                    model: model.OrganizationAvatar,
                     as: "avatar",
                     attributes: ["id", "avatar"],
                 },

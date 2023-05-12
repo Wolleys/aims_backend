@@ -1,8 +1,8 @@
 const Organization = require("../../database/Organization");
 
-const getOneOrganization = (organizationId) => {
+const getOneOrganization = (model, organizationId) => {
     try {
-        const organization = Organization.getOneOrganization(organizationId);
+        const organization = Organization.getOneOrganization(model, organizationId);
         return organization;
     } catch (error) {
         throw error;

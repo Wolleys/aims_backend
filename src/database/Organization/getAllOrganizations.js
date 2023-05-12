@@ -1,14 +1,6 @@
-const { Organization } = require("./organizationModel");
-const {
-    OrganizationAvatar,
-} = require("../OrganizationAvatar/organizationAvatarModel");
-const {
-    OrganizationAddress,
-} = require("../OrganizationAddress/organizationAddressModel");
-
-const getAllOrganizations = async () => {
+const getAllOrganizations = async (model) => {
     try {
-        const allOrganizations = await Organization().findAll({
+        const allOrganizations = await model.Organization.findAll({
             order: [["created_at", "DESC"]],
             attributes: [
                 "id",
@@ -22,7 +14,7 @@ const getAllOrganizations = async () => {
             ],
             include: [
                 {
-                    model: OrganizationAddress(),
+                    model: model.OrganizationAddress,
                     as: "address",
                     attributes: [
                         "id",
@@ -35,7 +27,7 @@ const getAllOrganizations = async () => {
                     ],
                 },
                 {
-                    model: OrganizationAvatar(),
+                    model: model.OrganizationAvatar,
                     as: "avatar",
                     attributes: ["id", "avatar"],
                 },

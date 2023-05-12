@@ -1,8 +1,6 @@
-const { Organization } = require("./organizationModel");
-
-const deleteOneOrganization = async (organizationId) => {
+const deleteOneOrganization = async (model, organizationId) => {
     try {
-        const organization = await Organization().destroy({
+        const organization = await model.Organization.destroy({
             where: { id: organizationId },
             attributes: ["id"],
         });

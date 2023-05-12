@@ -1,8 +1,11 @@
 const Organization = require("../../database/Organization");
 
-const deleteOneOrganization = (organizationId) => {
+const deleteOneOrganization = (model, organizationId) => {
     try {
-        const organization = Organization.deleteOneOrganization(organizationId);
+        const organization = Organization.deleteOneOrganization(
+            model,
+            organizationId
+        );
         return organization;
     } catch (error) {
         throw error;

@@ -1,45 +1,38 @@
 const { sequelize } = require("../dbConfig");
-const { Organization } = require("./organizationModel");
-const {
-    OrganizationAvatar,
-} = require("../OrganizationAvatar/organizationAvatarModel");
-const {
-    OrganizationAddress,
-} = require("../OrganizationAddress/organizationAddressModel");
 
-const createNewOrganization = async (newOrganization) => {
+const createNewOrganization = async (model, newOrganization) => {
     let transaction;
     try {
         transaction = await sequelize.transaction();
 
-        const isAlreadyAdded = await Organization().findOne({
+        const isAlreadyAdded = await model.Organization.findOne({
             where: { email: newOrganization.email },
             attributes: ["email"],
         });
         if (isAlreadyAdded) {
             throw {
-                status: 400,
+                status: 409,
                 message: `'${newOrganization.email}' is already in use!`,
             };
         }
 
-        const createdOrganization = await Organization().create(newOrganization, {
+        const result = await model.Organization.create(newOrganization, {
             transaction,
         });
 
         const address = {
             ...newOrganization,
-            organization_id: createdOrganization.id,
+            organization_id: result.id,
         };
 
-        const avatar = { organization_id: createdOrganization.id };
+        const avatar = { organization_id: result.id };
 
-        await OrganizationAddress().create(address, { transaction });
-        await OrganizationAvatar().create(avatar, { transaction });
+        await model.OrganizationAddress.create(address, { transaction });
+        await model.OrganizationAvatar.create(avatar, { transaction });
         await transaction.commit();
 
-        // Destructure createdOrganization object and seperate password field from the rest
-        const { password, ...data } = await createdOrganization.toJSON();
+        // Destructure result object and seperate password field from the rest
+        const { password, ...data } = await result.toJSON();
         return data;
     } catch (error) {
         if (transaction) {

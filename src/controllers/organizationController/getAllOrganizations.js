@@ -1,8 +1,11 @@
 const organizationService = require("../../services/organizationService");
 
 const getAllOrganizations = async (req, res) => {
+    const model = req.models;
     try {
-        const allOrganizations = await organizationService.getAllOrganizations();
+        const allOrganizations = await organizationService.getAllOrganizations(
+            model
+        );
         res.send({ status: "OK", data: allOrganizations });
     } catch (error) {
         res

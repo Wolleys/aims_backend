@@ -2,9 +2,14 @@ const organizationService = require("../../services/organizationService");
 
 const updateOneOrganization = async (req, res) => {
     const body = req.body;
+    const model = req.models;
     const organizationId = req.params.organizationId;
     try {
-        await organizationService.updateOneOrganization(organizationId, body);
+        await organizationService.updateOneOrganization(
+            model,
+            organizationId,
+            body
+        );
         res.send({ status: "OK", message: "Record updated successfully." });
     } catch (error) {
         res

@@ -2,8 +2,10 @@ const organizationService = require("../../services/organizationService");
 
 const createNewOrganization = async (req, res) => {
     const body = req.body;
+    const model = req.models;
     try {
         const createdOrganization = await organizationService.createNewOrganization(
+            model,
             body
         );
         res.status(201).send({ status: "OK", data: createdOrganization });

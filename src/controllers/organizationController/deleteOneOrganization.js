@@ -1,9 +1,10 @@
 const organizationService = require("../../services/organizationService");
 
 const deleteOneOrganization = async (req, res) => {
+    const model = req.models;
     const organizationId = req.params.organizationId;
     try {
-        await organizationService.deleteOneOrganization(organizationId);
+        await organizationService.deleteOneOrganization(model, organizationId);
         res
             .status(200)
             .json({ status: "OK", message: "Record deleted successfully." });

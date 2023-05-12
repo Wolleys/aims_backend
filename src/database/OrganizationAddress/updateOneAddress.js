@@ -1,8 +1,6 @@
-const { OrganizationAddress } = require("./organizationAddressModel");
-
-const updateOneAddress = async (organizationId, changes) => {
+const updateOneAddress = async (model, organizationId, changes) => {
     try {
-        const confirmIdParam = await OrganizationAddress().findOne({
+        const confirmIdParam = await model.OrganizationAddress.findOne({
             where: { organization_id: organizationId },
             attributes: ["organization_id"],
         });
@@ -13,16 +11,10 @@ const updateOneAddress = async (organizationId, changes) => {
             };
         }
 
-        const addressToUpdate = await OrganizationAddress().update(
+        await model.OrganizationAddress.update(
             { ...changes },
             { where: { organization_id: organizationId } }
         );
-        if (!addressToUpdate) {
-            throw {
-                status: 400,
-                message: `Error while updating organization address with the id '${organizationId}'`,
-            };
-        }
     } catch (error) {
         throw { status: error?.status || 500, message: error?.message || error };
     }

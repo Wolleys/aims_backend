@@ -1,7 +1,5 @@
-const { Organization } = require("../Organization/organizationModel");
-
-const checkOrganization = async (id) => {
-    const confirmIdParam = await Organization().findOne({
+const checkOrganization = async (model, id) => {
+    const confirmIdParam = await model.Organization.findOne({
         where: { id: id },
         attributes: ["id"],
     });
