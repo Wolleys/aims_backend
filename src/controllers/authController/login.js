@@ -18,12 +18,12 @@ const login = async (req, res) => {
         let options = {
             // secure: true,
             httpOnly: true,
-            // sameSite: "None",
+            sameSite: "None",
             maxAge: 20 * 60 * 1000, // Expires in 20min
         };
 
-        res.cookie("jwt", jwt.refreshToken, options);
-        res.status(200).send({ auth: true, token: jwt.accessToken });
+        res.cookie("jwt", jwt.refreshToken, options); // Create secure cookie with refresh token
+        res.status(200).send({ auth: true, token: jwt.accessToken }); // Send access token to user
     } catch (error) {
         res.status(error?.status || 500).send({
             auth: false,

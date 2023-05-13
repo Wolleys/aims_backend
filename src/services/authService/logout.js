@@ -1,7 +1,7 @@
 const Auth = require("../../database/Auth");
 
-const logout = (model, user) => {
-    const logoutUser = Auth.logout(model, user);
+const logout = (model, cookies) => {
+    const logoutUser = Auth.logout(model, cookies);
     return logoutUser;
 };
 
