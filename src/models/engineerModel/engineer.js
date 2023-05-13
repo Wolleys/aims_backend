@@ -38,6 +38,10 @@ function engineerModel(sequelize) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            user_role: {
+                type: DataTypes.STRING,
+                defaultValue: "Engineer",
+            },
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
