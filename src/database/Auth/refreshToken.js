@@ -12,7 +12,7 @@ const refreshToken = async (model, cookies) => {
         // Check if user has a valid refresh token cookie in the db
         const orgUser = await model.Organization.findOne({
             where: { refresh_token: refreshTkn },
-            attributes: ["id", "refresh_token"],
+            attributes: ["id", "user_role", "refresh_token"],
         });
         if (!orgUser) {
             throw { status: 403, message: "Forbidden: Invalid token" };
@@ -25,7 +25,8 @@ const refreshToken = async (model, cookies) => {
         }
 
         // Issue a new access token
-        const accessToken = sign({ id: data.id }, env.ACCESS_TOKEN_SECRET, {
+        const atclaims = { id: data.id, role: orgUser.user_role };
+        const accessToken = sign(atclaims, env.ACCESS_TOKEN_SECRET, {
             expiresIn: "30s",
         });
         return accessToken;

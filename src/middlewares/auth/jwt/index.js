@@ -1,13 +1,13 @@
 const { sign, verify } = require("jsonwebtoken");
 const env = process.env;
 
-const createToken = (claims) => {
+const createToken = (atclaims, rtclaims) => {
     try {
-        const accessToken = sign(claims, env.ACCESS_TOKEN_SECRET, {
+        const accessToken = sign(atclaims, env.ACCESS_TOKEN_SECRET, {
             expiresIn: "30s",
         });
 
-        const refreshToken = sign(claims, env.REFRESH_TOKEN_SECRET, {
+        const refreshToken = sign(rtclaims, env.REFRESH_TOKEN_SECRET, {
             expiresIn: "20min",
         });
         return { accessToken, refreshToken };

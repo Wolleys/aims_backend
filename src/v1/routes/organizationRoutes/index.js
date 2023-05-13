@@ -16,6 +16,7 @@ const {
 //Import middlewares
 const { cache } = require("../../../middlewares/cache");
 const { verifyToken } = require("../../../middlewares/auth/jwt");
+const { verifyRoles } = require("../../../middlewares/auth/roles");
 const { requireParams } = require("../../../middlewares/checkParams");
 const { validateSchema } = require("../../../middlewares/validateSchema");
 
@@ -42,12 +43,13 @@ const singleParam = ["organizationId"];
 
 //Organization routes
 // 1. Get all organizations
-router.get("/", verifyToken, getAllOrganizations);
+router.get("/", verifyToken, verifyRoles, getAllOrganizations);
 
 // 2. Get one organization by id
 router.get(
     "/:organizationId",
     verifyToken,
+    verifyRoles,
     requireParams(singleParam),
     getOneOrganization
 );
@@ -59,6 +61,7 @@ router.post("/", validateAll(), createNewOrganization);
 router.patch(
     "/:organizationId",
     verifyToken,
+    verifyRoles,
     requireParams(singleParam),
     validateSchema(updateOrganization),
     updateOneOrganization
@@ -68,6 +71,7 @@ router.patch(
 router.patch(
     "/:organizationId/address",
     verifyToken,
+    verifyRoles,
     requireParams(singleParam),
     validateSchema(physicalAddress),
     updateOneAddress
@@ -77,6 +81,7 @@ router.patch(
 router.delete(
     "/:organizationId",
     verifyToken,
+    verifyRoles,
     requireParams(singleParam),
     deleteOneOrganization
 );

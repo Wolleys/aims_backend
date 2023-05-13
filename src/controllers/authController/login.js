@@ -6,8 +6,9 @@ const login = async (req, res) => {
     const model = req.models;
     try {
         const loggedInUser = await authService.login(model, body);
-        const claims = { id: loggedInUser.id };
-        const jwt = createToken(claims); // Serialize user using the secrect key
+        const atclaims = { id: loggedInUser.id, role: loggedInUser.user_role };
+        const rtclaims = { id: loggedInUser.id };
+        const jwt = createToken(atclaims, rtclaims); // Serialize user using the secrect key
 
         // Save refreshToken with current user
         await model.Organization.update(
