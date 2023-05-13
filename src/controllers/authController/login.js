@@ -22,7 +22,7 @@ const login = async (req, res) => {
             maxAge: 20 * 60 * 1000, // Expires in 20min
         };
 
-        res.cookie("access-token", jwt.refreshToken, options);
+        res.cookie("jwt", jwt.refreshToken, options);
         res.status(200).send({ auth: true, token: jwt.accessToken });
     } catch (error) {
         res.status(error?.status || 500).send({

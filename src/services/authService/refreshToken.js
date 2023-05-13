@@ -1,7 +1,7 @@
 const Auth = require("../../database/Auth");
 
-const refreshToken = (model, user) => {
-    const token = Auth.refreshToken(model, user);
+const refreshToken = (model, cookies) => {
+    const token = Auth.refreshToken(model, cookies);
     return token;
 };
 
